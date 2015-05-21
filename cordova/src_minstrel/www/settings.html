@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Settings</title>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport"         content="user-scalable=no, width=device-width" />
+
+  <!-- BEGIN nativedroid -->
+  <link                 rel="stylesheet" type="text/css" href="css/nd/font-awesome.min.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/nd/jquerymobile.css" />
+  <link id="rbUIFont"   rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.roboto.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.css" />
+  <link id="jQMnDTheme" rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.light.css" />
+  <link id="jQMnDColor" rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.color.blue.css" />
+  <!-- END nativedroid -->
+
+  <!-- BEGIN logic -->
+  <link                 rel="stylesheet" type="text/css" href="css/app.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/fonts.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/highlight.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/spectrum.css" />
+
+  <script type="text/javascript" src="js/rb.storage.js"></script>
+  <script type="text/javascript" src="js/rb.config.js"></script>
+  <script type="text/javascript" src="js/rb.utilities.js"></script>
+  <script type="text/javascript" src="js/rb.app.js"></script>
+  <script type="text/javascript" src="js/rb.ui.js"></script>
+  <script type="text/javascript" src="js/rb.i18n.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.da.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.de.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.en.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.es.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.fr.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.it.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.pl.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.tr.js"></script>
+  <script type="text/javascript" src="js/rb.settings.js"></script>
+  <script type="text/javascript" src="js/rb.jsepub.js"></script>
+  <!-- END logic -->
+
+  <!-- BEGIN libraries -->
+  <script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
+  <!-- BEGIN initialize JQM -->
+  <!-- This MUST be loaded AFTER jquery but BEFORE jquery.mobile -->
+  <script type="text/javascript">
+      $(document).bind("mobileinit", function() {
+          RB.UI.initializeJQM();
+      });
+  </script>
+  <!-- END initialize JQM -->
+  <script type="text/javascript" src="lib/jquery.scrollTo-1.4.3.1-min.js"></script>
+  <script type="text/javascript" src="lib/jquery.mobile-1.3.2.min.js"></script>
+
+  <script type="text/javascript" src="lib/sprintf.js"></script>
+  <script type="text/javascript" src="lib/hammer.min.js"></script>
+  <script type="text/javascript" src="lib/spectrum.js"></script>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <!-- END libraries -->
+
+  <script type="text/javascript">
+      // bind update UI
+      $(document).on('pagebeforeshow', "#settings", RB.Settings.initializeUI);
+
+      // load UI font
+      // done here to prevent flickering
+      RB.UI.applyUIFont();
+
+      // load light or dark CSS
+      // done here to prevent flickering
+      RB.UI.applyNightMode();
+
+      // bind document events
+      document.addEventListener('deviceready', RB.Settings.initializePage, false);
+      document.addEventListener('backbutton',  RB.Settings.onBackButton,   false);
+      document.addEventListener('resume',      RB.UI.dimSystemBar,         false);
+
+      // if debug, then trigger onDeviceReady  
+      if (RB.App.isDebug()) {
+          RB.Settings.initializePage();
+      }
+  </script>
+ </head>
+ <body>
+
+  <!-- BEGIN of SETTINGS -->
+  <div data-role="page" id="settings" data-theme="b">
+
+   <!-- BEGIN of header -->
+   <div id="divHeader" data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+    <a                          onclick="RB.Settings.onBackButton();"><i class="icon-signout"></i></a>
+    <h1 id="txtSettingsHeader"  onclick="RB.Settings.onBackButton();">Settings</h1>
+   </div>
+   <!-- END of header -->
+
+   <!-- BEGIN of content -->
+   <div data-role="content">
+
+    <!-- BEGIN of padding -->
+    <div class="paddedContent">
+     <div class="separator">&#160;</div>
+     <div class="border" data-role="controlgroup" data-type="vertical">
+      <a id="btnSettingsChangeLanguage" href="#" data-role="button" data-icon="user">English</a>
+     </div>
+    
+     <div class="separator">&#160;</div>
+     <div class="paddedSettings">
+      <ul id="lstFormats" data-role="listview" class="border"></ul>
+      <p id="txtSettingsFormats1">Tap on the left icon to change the format settings.</p>
+      <p id="txtSettingsFormats2">Tap on the right box to enable/disable the format.</p>
+     </div>
+
+     <div class="separator">&#160;</div>
+     <div id="colSettingsScreen" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Screen</h3>
+      <div class="inset">
+       <div class="separator">&#160;</div>
+        <div class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnToggleUIAnimatedMenu" href="#" data-role="button" data-icon="check">Animated Menus</a>
+       </div>
+       
+       <div class="separator">&#160;</div>
+       <div class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnSettingsChangeUIFont" href="#" data-role="button" data-icon="user">UI Font</a>
+       </div>
+       
+       <div class="separator">&#160;</div>
+       <div class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnSettingsChangeOrientation" href="#" data-role="button" data-icon="user">Lock Orientation</a>
+       </div>
+     
+       <div class="separator">&#160;</div>
+       <div class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnToggleUINightMode" href="#" data-role="button" data-icon="check">Night Mode</a>
+       </div> 
+       
+       <div class="separator">&#160;</div>
+       <div class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnSettingsChangeEnableBrightness" href="#" data-role="button" data-icon="check">Enable changing brightness</a>
+       </div>
+
+       <div id="divSettingsChangeUIBrightness">
+        <div class="separator">&#160;</div>
+        <div class="border" data-role="controlgroup" data-type="vertical">
+         <a id="btnSettingsChangeUIBrightness" href="#" data-role="button" data-icon="gear">UI Brightness</a>
+        </div>
+       </div>
+      </div>
+     </div>
+
+     <div class="separator">&#160;</div>
+     <div id="colSettingsLibrary" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Library</h3>
+      <div class="inset">
+       <div class="separator">&#160;</div>
+       <form class="border">
+        <div data-role="fieldcontain">
+         <input  id="inpchkToggleShowHiddenBooks"       type="checkbox" />
+         <label for="inpchkToggleShowHiddenBooks"       id="chkToggleShowHiddenBooks">Show hidden books in library</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleHideBooksOnSort"       type="checkbox"/>
+         <label for="inpchkToggleHideBooksOnSort"       id="chkToggleHideBooksOnSort">Hide books when sorting</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleOpenNewBook"           type="checkbox"/>
+         <label for="inpchkToggleOpenNewBook"           id="chkToggleOpenNewBook">Open imported book immediately</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleCacheMetadata"         type="checkbox"/>
+         <label for="inpchkToggleCacheMetadata"         id="chkToggleCacheMetadata">Save metadata in memory</label>
+        </div>
+       </form>
+       <div class="separator">&#160;</div>
+       <div id="divSettingsChangeStorageDirectory" class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnSettingsChangeStorageDirectory" href="#" data-role="button" data-icon="gear"></a>
+       </div>
+      </div>
+     </div>
+     
+     <div class="separator">&#160;</div>
+     <div id="colSettingsAudio" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Audio</h3>
+      <div class="inset">
+       <div class="separator">&#160;</div>
+       <form class="border">
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleEnablePlaybackSpeed"   type="checkbox"/>
+         <label for="inpchkToggleEnablePlaybackSpeed"   id="chkToggleEnablePlaybackSpeed"></label>
+        </div>
+       </form>
+       <div class="separator">&#160;</div>
+       <div id="divSettingsChangeMediaPlayerMode" class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnSettingsChangeMediaPlayerMode" href="#" data-role="button" data-icon="gear"></a>
+       </div>
+      </div>
+     </div>
+
+     <div class="separator">&#160;</div>
+     <div id="colSettingsAdvanced" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Advanced</h3>
+      <div class="inset">
+       <div class="separator">&#160;</div>
+       <div id="divSettingsChangeOpenURLsInSystemBrowser" class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnSettingsChangeOpenURLsInSystemBrowser" href="#" data-role="button" data-icon="delete">Open URLs in system browser</a>
+       </div>
+       <div class="separator">&#160;</div>
+       <div class="message warning" id="btnDeleteRecentInfos">
+        <i class="icon-trash"></i>
+        <p class="bold" id="txtDeleteRecentInfos">Reset recent</p>
+       </div>
+       <div class="separator">&#160;</div>
+       <div class="message warning" id="btnDeleteReadingPositions">
+        <i class="icon-trash"></i>
+        <p class="bold" id="txtDeleteReadingPositions">Reset bookmarks</p>
+       </div>
+       <div class="separator">&#160;</div>
+       <div class="message error" id="btnDeleteLibraryItems">
+        <i class="icon-trash"></i>
+        <p class="bold" id="txtDeleteLibraryItems">Reset library items</p>
+       </div>
+       <div class="separator">&#160;</div>
+       <div class="message error" id="btnReinitialize">
+        <i class="icon-trash"></i>
+        <p class="bold" id="txtReinitialize">Reinitialize app</p>
+       </div>
+       <div class="separator">&#160;</div>
+      </div>
+     </div>
+
+    </div>
+    <!-- END of padding -->
+   </div>
+   <!-- END of content -->
+
+   <!-- BEGIN of footer -->
+   <div data-id="persistentFooter" data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" data-hide-during-focus="">
+    <div data-role="navbar">
+     <ul>
+      <li><a id="btnSettingsBack" data-icon="circle-arrow-left" onclick="RB.Settings.onBackButton();">Back</a></li>
+     </ul>
+    </div>
+   </div>
+   <!-- END of footer -->
+
+  </div>
+  <!-- END of SETTINGS -->
+
+ </body>
+</html>

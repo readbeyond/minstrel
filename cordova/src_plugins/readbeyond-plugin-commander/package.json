@@ -1,0 +1,25 @@
+{
+  "name": "readbeyond-plugin-commander",
+  "version": "3.0.1",
+  "description": "This plugin contains a collection of low level, platform-dependent functions.",
+  "cordova": {
+    "id": "readbeyond-plugin-commander",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+  },
+  "keywords": [
+    "cordova",
+    "commander",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "peerDependencies": {
+  },
+  "author": "ReadBeyond",
+  "license": "MIT"
+}

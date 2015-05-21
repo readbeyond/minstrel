@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <title>TEST UNZIPPER</title>
+    </head>
+    <body>
+        <div class="app">
+            <h1>TEST UNZIPPER</h1>
+            <input id="inpSrc"   type="text" value="/sdcard/minstrel/test.epub"></input>
+            <input id="inpDst"   type="text" value="/sdcard/minstrel/tmp"></input>
+            <input id="inpEntry" type="text" value="OEBPS/Text/p001.xhtml"></input>
+            <h1 id="btnList"     class="border">LIST</h1>
+            <h1 id="btnAll"      class="border">UNZIP ALL</h1>
+            <h1 id="btnAllNMF"   class="border">UNZIP ALL NON MEDIA FILES</h1>
+            <h1 id="btnAllSmall" class="border">UNZIP ALL SMALL FILES</h1>
+            <h1 id="btnStruct"   class="border">UNZIP STRUCTURE</h1>
+            <h1 id="btnSingle"   class="border">UNZIP SINGLE FILE</h1>
+            <h1 id="btnClear"    class="border">CLEAR</h1>
+            <p  id="txtInfo"     class="log"></p>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+    </body>
+</html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin
+    xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="readbeyond-plugin-mediarb"
+    version="3.0.1">
+
+    <name>MediaRB</name>
+    <description>This is a tweaked version of the official Cordova Media Plugin, with no dependency from File Plugin, play-only functions (recording removed), playback rate setting, support for Android and iOS, and a few bug fixes to work around Cordova bugs management.</description>
+    <license>MIT</license>
+    <keywords>cordova,media</keywords>
+
+    <js-module src="www/MediaErrorRB.js" name="MediaErrorRB">
+        <clobbers target="window.MediaErrorRB" />
+    </js-module>
+    
+    <js-module src="www/MediaRB.js" name="MediaRB">
+        <clobbers target="window.MediaRB" />
+    </js-module>
+        
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="MediaRB" >
+                <param name="android-package" value="it.readbeyond.minstrel.mediarb.AudioHandler"/>
+            </feature>
+        </config-file>
+        
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+        </config-file>
+        
+        <source-file src="src/android/AudioHandler.java"  target-dir="src/it/readbeyond/minstrel/mediarb" />
+        <source-file src="src/android/AudioPlayer.java"   target-dir="src/it/readbeyond/minstrel/mediarb" />
+        <source-file src="src/android/FileHelper.java"    target-dir="src/it/readbeyond/minstrel/mediarb" />
+        <source-file src="src/android/MediaPlayer.java"   target-dir="src/it/readbeyond/minstrel/mediarb" />
+        <source-file src="src/android/MediaPlayerRB.java" target-dir="src/it/readbeyond/minstrel/mediarb" />
+        <source-file src="src/android/Sonic.java"         target-dir="src/org/vinuxproject/sonic" />
+        <source-file src="libs/COPYING"                   target-dir="libs" />
+        <source-file src="libs/README.txt"                target-dir="libs" />
+        <source-file src="libs/armeabi/libsonic.so"       target-dir="libs/armeabi" />
+        <source-file src="libs/armeabi-v7a/libsonic.so"   target-dir="libs/armeabi-v7a" />
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">    
+        <config-file target="config.xml" parent="/*">
+            <feature name="MediaRB">
+                <param name="ios-package" value="RBSound" /> 
+            </feature>
+        </config-file>
+        <header-file src="src/ios/RBSound.h" />
+        <source-file src="src/ios/RBSound.m" />
+    </platform>
+
+    <!-- browser -->
+    <!--
+    <platform name="browser">
+        <js-module src="www/browser/MediaRB.js" name="BrowserMediaRB">
+            <clobbers target="window.MediaRB" />
+        </js-module>
+    </platform>
+    -->
+
+</plugin>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin
+    xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="readbeyond-plugin-media"
+    version="3.0.1">
+
+    <name>Media</name>
+    <description>This is a tweaked version of the official Cordova Media Plugin for Android, with no dependency from File Plugin, play-only functions (recording removed), and a few bug fixes to work around Cordova bugs management.</description>
+    <license>MIT</license>
+    <keywords>cordova,media</keywords>
+
+    <js-module src="www/MediaError.js" name="MediaError">
+        <clobbers target="window.MediaError" />
+    </js-module>
+    
+    <js-module src="www/Media.js" name="Media">
+        <clobbers target="window.Media" />
+    </js-module>
+        
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Media" >
+                <param name="android-package" value="it.readbeyond.minstrel.media.AudioHandler"/>
+            </feature>
+        </config-file>
+        
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file>
+        
+        <source-file src="src/android/AudioHandler.java" target-dir="src/it/readbeyond/minstrel/media" />
+        <source-file src="src/android/AudioPlayer.java"  target-dir="src/it/readbeyond/minstrel/media" />
+        <source-file src="src/android/FileHelper.java"   target-dir="src/it/readbeyond/minstrel/media" />
+    </platform>
+
+    <!-- browser -->
+    <!--
+    <platform name="browser">
+        <js-module src="www/browser/Media.js" name="BrowserMedia">
+            <clobbers target="window.Media" />
+        </js-module>
+    </platform>
+    -->
+
+</plugin>

@@ -1,0 +1,25 @@
+{
+  "name": "readbeyond-plugin-unzipper",
+  "version": "3.0.1",
+  "description": "This plugin lists the entries in a ZIP file, decompresses a ZIP file, or one or more selected entries from a ZIP file.",
+  "cordova": {
+    "id": "readbeyond-plugin-unzipper",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+  },
+  "keywords": [
+    "cordova",
+    "unzipper",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "peerDependencies": {
+  },
+  "author": "ReadBeyond",
+  "license": "MIT"
+}

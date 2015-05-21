@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Minstrel</title>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport"         content="user-scalable=no, width=device-width" />
+
+  <!-- BEGIN AppLinks -->
+  <meta property="al:android:app_name" content="Minstrel" />
+  <meta property="al:android:package"  content="it.readbeyond.minstrel" />
+  <meta property="al:android:url"      content="minstrel://library" />
+  <meta property="al:ios:app_name"     content="Minstrel" />
+  <meta property="al:ios:app_store_id" content="012345678" /><!-- 771746561 -->
+  <meta property="al:ios:url"          content="minstrel://library" />
+  <meta property="al:web:url"          content="http://www.readbeyond.it/minstrel" />
+  <!-- END AppLinks -->
+
+  <!-- BEGIN nativedroid -->
+  <link                 rel="stylesheet" type="text/css" href="css/nd/font-awesome.min.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/nd/jquerymobile.css" />
+  <link id="rbUIFont"   rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.roboto.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.css" />
+  <link id="jQMnDTheme" rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.light.css" />
+  <link id="jQMnDColor" rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.color.blue.css" />
+  <!-- END nativedroid -->
+
+  <!-- BEGIN logic -->
+  <link                 rel="stylesheet" type="text/css" href="css/app.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/fonts.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/highlight.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/spectrum.css" />
+
+  <script type="text/javascript" src="js/rb.storage.js"></script>
+  <script type="text/javascript" src="js/rb.config.js"></script>
+  <script type="text/javascript" src="js/rb.utilities.js"></script>
+  <script type="text/javascript" src="js/rb.app.js"></script>
+  <script type="text/javascript" src="js/rb.ui.js"></script>
+  <script type="text/javascript" src="js/rb.i18n.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.da.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.de.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.en.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.es.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.fr.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.it.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.pl.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.tr.js"></script>
+  <script type="text/javascript" src="js/rb.library.js"></script>
+  <script type="text/javascript" src="js/rb.jsepub.js"></script>
+  <!-- END logic -->
+
+  <!-- BEGIN libraries -->
+  <script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
+  <!-- BEGIN initialize JQM -->
+  <!-- This MUST be loaded AFTER jquery but BEFORE jquery.mobile -->
+  <script type="text/javascript">
+      $(document).bind("mobileinit", function() {
+          RB.UI.initializeJQM();
+      });
+  </script>
+  <!-- END initialize JQM -->
+  <script type="text/javascript" src="lib/jquery.scrollTo-1.4.3.1-min.js"></script>
+  <script type="text/javascript" src="lib/jquery.mobile-1.3.2.min.js"></script>
+
+  <script type="text/javascript" src="lib/sprintf.js"></script>
+  <script type="text/javascript" src="lib/hammer.min.js"></script>
+  <script type="text/javascript" src="lib/spectrum.js"></script>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <!-- END libraries -->
+
+  <script type="text/javascript">
+      // the first time the app is run,
+      // this will set the default values
+      // in the local storage
+      RB.App.setDefaultValues();
+      
+      // bind update UI
+      $(document).on('pagebeforeshow', "#library", RB.Library.initializeUI);
+      
+      // load UI font
+      // done here to prevent flickering
+      RB.UI.applyUIFont();
+      
+      // load light or dark CSS
+      // done here to prevent flickering
+      RB.UI.applyNightMode();
+      
+      // set platform
+      RB.App.setPlatform();
+      
+      // bind document events
+      document.addEventListener('deviceready', this.onDeviceReady,      false);
+      document.addEventListener('backbutton',  RB.Library.onBackButton, false);
+      document.addEventListener('resume',      this.onResume,           false);
+
+      // if debug, then trigger onDeviceReady  
+      if (RB.App.isDebug()) {
+          this.onDeviceReady();
+      }
+
+      // resume: check whether there we must import a new file
+      // and dim system bar (if on night mode) 
+      function onResume() {
+          RB.UI.dimSystemBar();
+          RB.Library.checkNewFile();
+      };
+      
+      // ready: initialize and then load library
+      function onDeviceReady() {
+          RB.Library.initializePage();
+          RB.Library.checkNewFile();
+      };
+  </script>
+ </head>
+ <body>
+
+  <!-- BEGIN of LIBRARY -->
+  <div data-role="page" id="library" data-theme="b">
+
+   <!-- BEGIN of header -->
+   <div id="divHeader" data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+    <a  id="btnExit" onclick="RB.Library.onBackButton();"><i class="icon-signout"></i></a>
+    <h1 id="txtLibraryTitle">Minstrel</h1>
+   </div>
+   <!-- END of header -->
+
+   <!-- BEGIN of content -->
+   <div data-role="content">
+    <ul id="lstItems" data-role="listview" data-filter="true" data-filter-placeholder="" data-split-icon="reorder" data-filter-theme="b"></ul>
+   </div>
+   <!-- END of content -->
+
+   <!-- BEGIN of footer -->
+   <div id="divFooter"        data-role="footer" data-id="persistentFooter" data-position="fixed" data-tap-toggle="false" data-theme="b" data-hide-during-focus="">
+    <div id="divFooterNavbar" data-role="navbar">
+     <ul data-theme="b">
+      <li><a id="btnRefresh"  data-icon="refresh">Refresh</a></li>
+      <li><a id="btnSettings" data-icon="gear">Settings</a></li>
+      <li><a id="btnSort"     data-icon="sort-by-alphabet">Title</a></li>
+      <li><a id="btnHelp"     data-icon="question">Help</a></li>
+     </ul>
+    </div>
+   </div>
+   <!-- END of footer -->
+
+  </div>
+  <!-- END of LIBRARY -->
+
+
+
+  <!-- BEGIN dialog -->
+  <div data-role="dialog" id="divDialogLoading" data-theme="b">
+   <div data-role="header" data-theme="b">
+    <h1 id="txtNotice">Minstrel</h1>
+   </div>
+   <div data-role="content" data-theme="b">
+    <h2 id="txtImportFrom" class="center">Import Audio-eBooks</h2>
+    <div class="border" data-role="controlgroup" data-type="vertical">
+     <a id="btnScanDefaultDirectory" data-role="button" data-icon="star">/sdcard/minstrel/</a>
+    </div>
+    <div class="separator">&#160;</div>
+    <div class="border" data-role="controlgroup" data-type="vertical">
+     <a id="btnChooseOtherDirectory" data-role="button" data-icon="alert">Choose other dir</a>
+    </div>
+    <div class="separator">&#160;</div>
+    <div class="border" data-role="controlgroup" data-type="vertical">
+     <a id="btnChangeLanguage"      data-role="button" data-icon="user">English</a>
+    </div>
+    <div class="separator">&#160;</div>
+    <div class="showastabs center nobg">
+     <a id="btnCancel" href="#"     data-role="button" data-icon="delete" data-rel="back" data-inline="true" class="border">Cancel</a>
+    </div>
+   </div>
+  </div>  
+  <!-- END dialog -->
+
+ </body>
+</html>

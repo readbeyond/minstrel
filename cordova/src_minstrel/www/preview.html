@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Preview</title>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport"         content="user-scalable=no, width=device-width" />
+
+  <!-- BEGIN nativedroid -->
+  <link                 rel="stylesheet" type="text/css" href="css/nd/font-awesome.min.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/nd/jquerymobile.css" />
+  <link id="rbUIFont"   rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.roboto.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.css" />
+  <link id="jQMnDTheme" rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.light.css" />
+  <link id="jQMnDColor" rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.color.blue.css" />
+  <!-- END nativedroid -->
+
+  <!-- BEGIN logic -->
+  <link                 rel="stylesheet" type="text/css" href="css/app.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/fonts.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/highlight.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/spectrum.css" />
+
+  <script type="text/javascript" src="js/rb.storage.js"></script>
+  <script type="text/javascript" src="js/rb.config.js"></script>
+  <script type="text/javascript" src="js/rb.utilities.js"></script>
+  <script type="text/javascript" src="js/rb.app.js"></script>
+  <script type="text/javascript" src="js/rb.ui.js"></script>
+  <script type="text/javascript" src="js/rb.i18n.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.da.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.de.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.en.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.es.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.fr.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.it.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.pl.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.tr.js"></script>
+  <script type="text/javascript" src="js/rb.preview.js"></script>
+  <script type="text/javascript" src="js/rb.jsepub.js"></script>
+  <!-- END logic -->
+
+  <!-- BEGIN libraries -->
+  <script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
+  <!-- BEGIN initialize JQM -->
+  <!-- This MUST be loaded AFTER jquery but BEFORE jquery.mobile -->
+  <script type="text/javascript">
+      $(document).bind("mobileinit", function() {
+          RB.UI.initializeJQM();
+      });
+  </script>
+  <!-- END initialize JQM -->
+  <script type="text/javascript" src="lib/jquery.scrollTo-1.4.3.1-min.js"></script>
+  <script type="text/javascript" src="lib/jquery.mobile-1.3.2.min.js"></script>
+
+  <script type="text/javascript" src="lib/sprintf.js"></script>
+  <script type="text/javascript" src="lib/hammer.min.js"></script>
+  <script type="text/javascript" src="lib/spectrum.js"></script>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <!-- END libraries -->
+
+  <script type="text/javascript">
+      // bind update UI
+      $(document).on('pagebeforeshow', "#preview", RB.Preview.initializeUI);
+
+      // load UI font
+      // done here to prevent flickering
+      RB.UI.applyUIFont();
+
+      // load light or dark CSS
+      // done here to prevent flickering
+      RB.UI.applyNightMode();
+
+      // bind document events
+      document.addEventListener('deviceready', RB.Preview.initializePage, false);
+      document.addEventListener('backbutton',  RB.UI.onBackButton,        false);
+      document.addEventListener('resume',      RB.UI.dimSystemBar,        false);
+
+      // if debug, then trigger onDeviceReady  
+      if (RB.App.isDebug()) {
+          RB.Preview.initializePage();
+      }
+  </script>
+ </head>
+ <body>
+
+  <!-- BEGIN of PREVIEW -->
+  <div data-role="page" id="preview" data-theme="b">
+
+   <!-- BEGIN of header -->
+   <div id="divHeader" data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+    <a href="#" data-rel="back"><i class="icon-signout"></i></a>
+    <h1 id="txtPreviewHeader" onclick="RB.UI.onBackButton();">Preview</h1>
+   </div>
+   <!-- END of header -->
+
+   <!-- BEGIN of content -->
+   <div data-role="content" id="divContentContainer">
+
+    <!-- BEGIN of padding -->
+    <div class="paddedContent">
+     <div class="metadataContainer">
+      <div class="metadataColumn1">
+       <div class="metadataColumnInner1">
+        <div class="metadataCoverContainer"><img class="metadataCover" id="imgPreviewCover" src=""/></div>
+       </div>
+      </div>
+      <div class="metadataColumn2">
+       <h1 id="txtPreviewTitle"><span id="txtPreviewTitleValue"></span></h1>
+       <div class="separator">&#160;</div>
+       <p id="txtPreviewSeries">
+        <span class="metadataLabel" id="txtPreviewSeriesLabel">Series:</span>
+        <span id="txtPreviewSeriesValue"></span>
+       </p>
+       <p id="txtPreviewSeriesIndex">
+        <span class="metadataLabel" id="txtPreviewSeriesIndexLabel">Index:</span>
+        <span id="txtPreviewSeriesIndexValue"></span>
+       </p>
+       <p id="txtPreviewAuthor">
+        <span class="metadataLabel" id="txtPreviewAuthorLabel">Author:</span>
+        <span id="txtPreviewAuthorValue"></span>
+       </p>
+       <p id="txtPreviewNarrator">
+        <span class="metadataLabel" id="txtPreviewNarratorLabel">Narrator:</span>
+        <span id="txtPreviewNarratorValue"></span>
+       </p>
+       <p id="txtPreviewNumberOfAssets">
+        <span class="metadataLabel" id="txtPreviewNumberOfAssetsLabel">Number of assets:</span>
+        <span id="txtPreviewNumberOfAssetsValue"></span>
+       </p>
+       <p id="txtPreviewDuration">
+        <span class="metadataLabel" id="txtPreviewDurationLabel">Duration:</span>
+        <span id="txtPreviewDurationValue"></span>
+       </p>
+       <p id="txtPreviewLanguage">
+        <span class="metadataLabel" id="txtPreviewLanguageLabel">Language:</span>
+        <span id="txtPreviewLanguageValue"></span>
+       </p>
+       <p id="txtPreviewPublisher">
+        <span class="metadataLabel" id="txtPreviewPublisherLabel">Publisher:</span>
+        <span id="txtPreviewPublisherValue"></span>
+       </p>
+       <p id="txtPreviewSubject">
+        <span class="metadataLabel" id="txtPreviewSubjectLabel">Keywords:</span>
+        <span id="txtPreviewSubjectValue"></span>
+       </p>
+       <p id="txtPreviewDateLastOpened">
+        <span class="metadataLabel" id="txtPreviewDateLastOpenedLabel">Last open:</span>
+        <span id="txtPreviewDateLastOpenedValue"></span>
+       </p>
+      </div>
+      <div class="separator">&#160;</div>
+      <div class="message success" id="btnPreviewOpenBook">
+       <i class="icon-ok"></i>
+       <p class="bold" id="txtPreviewOpenBook">Open Book</p>
+      </div>
+     </div>
+     
+     <div class="separator">&#160;</div>
+     <div class="metadataContainer">
+      <p id="txtPreviewDescription">
+       <span class="metadataLabel" id="txtPreviewDescriptionLabel">Description:</span>
+       <span id="txtPreviewDescriptionValue"></span>
+      </p>
+     </div>
+     
+     <div class="separator">&#160;</div>
+     <div id="colPreviewSettings" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Settings</h3>
+      <div class="inset">
+       <div class="separator">&#160;</div>
+       <div class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnPreviewShowBookInLibrary" href="#" data-role="button" data-icon="check" data-iconpos="left">Show in library</a>
+       </div>
+       <!--
+       <div class="separator">&#160;</div>
+       <div class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnPreviewShowStockThumbnailInLibrary" href="#" data-role="button" data-icon="check" data-iconpos="left">Use cover from the file as library thumbnail</a>
+       </div>
+       -->
+       <div class="separator">&#160;</div>
+       <div class="message warning" id="btnDeleteRecentInfoBook">
+        <i class="icon-trash"></i>
+        <p class="bold" id="txtPreviewDeleteRecentInfoBook">Reset recent</p>
+       </div>
+       <div class="separator">&#160;</div>
+       <div class="message warning" id="btnDeleteReadingPositionBook">
+        <i class="icon-trash"></i>
+        <p class="bold" id="txtPreviewDeleteReadingPositionBook">Reset bookmark</p>
+       </div>
+       <div class="separator">&#160;</div>
+       <div class="message warning" id="btnDeleteReadingSettingsBook">
+        <i class="icon-trash"></i>
+        <p class="bold" id="txtPreviewDeleteReadingSettingsBook">Reset reading settings</p>
+       </div>
+       <div class="separator">&#160;</div>
+       <div class="message warning" id="btnDeleteMetadataBook">
+        <i class="icon-trash"></i>
+        <p class="bold" id="txtPreviewDeleteMetadataBook">Reset metadata</p>
+       </div>
+      </div>
+     </div>
+
+     <div class="separator">&#160;</div>
+     <div id="colPreviewAdvanced" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Advanced</h3>
+      <div class="inset">
+       <p id="txtPreviewAppIdentifier">
+        <span class="metadataLabel" id="txtPreviewAppIdentifierLabel">Minstrel ID:</span>
+        <span id="txtPreviewAppIdentifierValue"></span>
+       </p>
+       <p id="txtPreviewIdentifier">
+        <span class="metadataLabel" id="txtPreviewIdentifierLabel">ID:</span>
+        <span id="txtPreviewIdentifierValue"></span>
+       </p>
+       <p id="txtPreviewDate">
+        <span class="metadataLabel" id="txtPreviewDateLabel">Date:</span>
+        <span id="txtPreviewDateValue"></span>
+       </p>
+       <p id="txtPreviewDateModified">
+        <span class="metadataLabel" id="txtPreviewDateModifiedLabel">Last edit:</span>
+        <span id="txtPreviewDateModifiedValue"></span>
+       </p>
+       <p id="txtPreviewItemSize">
+        <span class="metadataLabel" id="txtPreviewItemSizeLabel">Size:</span>
+        <span id="txtPreviewItemSizeValue"></span>
+       </p>
+       <p id="txtPreviewItemPath">
+        <span class="metadataLabel" id="txtPreviewItemPathLabel">Path:</span>
+        <span id="txtPreviewItemPathValue"></span>
+       </p>
+       <div id="btnDeleteFromLibraryWrapper">
+        <div class="separator">&#160;</div>
+        <div class="message warning" id="btnDeleteFromLibrary">
+         <i class="icon-trash"></i>
+         <p class="bold" id="txtPreviewDeleteFromLibrary">Delete from library</p>
+        </div>
+       </div>
+       <div class="separator">&#160;</div>
+       <div class="message error" id="btnDeleteFile">
+        <i class="icon-trash"></i>
+        <p class="bold" id="txtPreviewDeleteFile">Delete</p>
+       </div>
+      </div>
+     </div>
+
+    </div>
+    <!-- END of padding -->
+   </div>
+   <!-- END of content -->
+
+   <!-- BEGIN of footer -->
+   <div data-id="persistentFooter" data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" data-hide-during-focus="">
+    <div data-role="navbar">
+     <ul>
+      <li><a id="btnPreviewBack" href="#" data-rel="back" data-icon="circle-arrow-left">Back</a></li>
+     </ul>
+    </div>
+   </div>
+   <!-- END of footer -->
+
+  </div>
+  <!-- END of PREVIEW -->
+
+ </body>
+</html>

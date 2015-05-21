@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <title>TEST LIBRARIAN</title>
+    </head>
+    <body>
+        <div class="app">
+            <h1>TEST LIBRARIAN</h1>
+            <input id="inpPath"   type="text" value="/sdcard/minstrel/"></input>
+            <input id="inpSingle" type="text" value="test.epub"></input>
+            <h1 id="btnCreateT" class="border">CREATE THUMBS DIR</h1>
+            <h1 id="btnEmptyT"  class="border">EMPTY THUMBS DIR</h1>
+            <h1 id="btnScanF"   class="border">SCAN FULL</h1>
+            <h1 id="btnScanS"   class="border">SCAN SINGLE</h1>
+            <h1 id="btnClear"   class="border">CLEAR</h1>
+            <p  id="txtInfo"    class="log"></p>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+    </body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Help</title>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport"         content="user-scalable=no, width=device-width" />
+
+  <!-- BEGIN nativedroid -->
+  <link                 rel="stylesheet" type="text/css" href="css/nd/font-awesome.min.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/nd/jquerymobile.css" />
+  <link id="rbUIFont"   rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.roboto.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.css" />
+  <link id="jQMnDTheme" rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.light.css" />
+  <link id="jQMnDColor" rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.color.blue.css" />
+  <!-- END nativedroid -->
+
+  <!-- BEGIN logic -->
+  <link                 rel="stylesheet" type="text/css" href="css/app.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/fonts.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/highlight.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/spectrum.css" />
+
+  <script type="text/javascript" src="js/rb.storage.js"></script>
+  <script type="text/javascript" src="js/rb.config.js"></script>
+  <script type="text/javascript" src="js/rb.utilities.js"></script>
+  <script type="text/javascript" src="js/rb.app.js"></script>
+  <script type="text/javascript" src="js/rb.ui.js"></script>
+  <script type="text/javascript" src="js/rb.i18n.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.da.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.de.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.en.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.es.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.fr.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.it.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.pl.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.tr.js"></script>
+  <script type="text/javascript" src="js/rb.help.js"></script>
+  <!-- END logic -->
+
+  <!-- BEGIN libraries -->
+  <script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
+  <!-- BEGIN initialize JQM -->
+  <!-- This MUST be loaded AFTER jquery but BEFORE jquery.mobile -->
+  <script type="text/javascript">
+      $(document).bind("mobileinit", function() {
+          RB.UI.initializeJQM();
+      });
+  </script>
+  <!-- END initialize JQM -->
+  <script type="text/javascript" src="lib/jquery.scrollTo-1.4.3.1-min.js"></script>
+  <script type="text/javascript" src="lib/jquery.mobile-1.3.2.min.js"></script>
+
+  <script type="text/javascript" src="lib/sprintf.js"></script>
+  <script type="text/javascript" src="lib/jhammer.min.js"></script>
+  <script type="text/javascript" src="lib/spectrum.js"></script>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <!-- END libraries -->
+
+  <script type="text/javascript">
+      // bind update UI
+      $(document).on('pagebeforeshow', "#help", RB.Help.initializeUI);
+
+      // load UI font
+      // done here to prevent flickering
+      RB.UI.applyUIFont();
+
+      // load light or dark CSS
+      // done here to prevent flickering
+      RB.UI.applyNightMode();
+
+      // bind document events
+      document.addEventListener('deviceready', RB.Help.initializePage, false);
+      document.addEventListener('backbutton',  RB.UI.onBackButton,     false);
+      document.addEventListener('resume',      RB.UI.dimSystemBar,     false);
+
+      // if debug, then trigger onDeviceReady  
+      if (RB.App.isDebug()) {
+          RB.Help.initializePage();
+      }
+  </script>
+ </head>
+ <body>
+
+  <!-- BEGIN of HELP -->
+  <div data-role="page" id="help" data-theme="b">
+
+   <!-- BEGIN of header -->
+   <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+    <a href="#" data-rel="back"><i class="icon-signout"></i></a>
+    <h1 id="txtHelp" onclick="RB.UI.onBackButton();">Minstrel</h1>
+   </div>
+   <!-- END of header -->
+
+   <!-- BEGIN of content -->
+   <div data-role="content">
+    <div class="paddedContent">
+
+     <!-- HELP -->
+     <h1 id="divHelpContent1p1">Minstrel Help</h1>
+     <p  id="divHelpContent1p2" class="noindent">Minstrel is the perfect app for reading+listening Audio-eBooks in reflowable EPUB 3 format. Minstrel is an experimental project by <a class="ui-link" href="http://www.readbeyond.it/">ReadBeyond</a>.</p>
+     <p  id="divHelpContent1p3" class="noindent">Minstrel <span id="libAppVersion"></span> (<span id="libAppDate"></span>, build <span id="libAppBuild"></span>)</p>
+     <p  id="divHelpContent1p4" class="noindent">Web: <a class="ui-link" href="http://www.readbeyond.it/minstrel/">readbeyond.it/minstrel</a></p>
+     <p  id="divHelpContent1p5" class="noindent">Email: <tt>minstrel@readbeyond.it</tt></p>
+
+     <div id="libAppSpinoff">
+      <div class="separator">&#160;</div>
+      <h2 id="libAppSpinoffTitle"></h2>
+      <p  id="libAppSpinoffP1"  class="noindent"></p>
+      <p  id="libAppSpinoffP2"  class="noindent"></p>
+      <p  id="libAppSpinoffP3"  class="noindent"></p>
+      <p  id="libAppSpinoffP4"  class="noindent"></p>
+      <p  id="libAppSpinoffP5"  class="noindent"></p>
+      <p  id="libAppSpinoffWebContainer"  class="noindent">Web: <a id="libAppSpinoffWebURL" class="ui-link" href=""><span id="libAppSpinoffWeb"></span></a></p>
+      <p  id="libAppSpinoffMailContainer" class="noindent">Email: <tt><span id="libAppSpinoffMail"></span></tt></p>
+     </div>
+
+     <div class="separator">&#160;</div>
+     <h2 id="divHelpContent2p1"  class="noindent">Library View</h2>
+     <p                          class="noindent"><span id="divHelpContent2p2">Hit the Refresh button to update/import EPUB 3 Audio-eBooks into your library.</span> (<i class='icon-refresh'></i>)</p>
+     <p                          class="noindent"><span id="divHelpContent2p3">You can sort your books by Title or by Author.</span> (<i class='icon-sort-by-alphabet'></i>)</p>
+     <p  id="divHelpContent2p4"  class="noindent">You can search for a book using the search bar at the top of the screen.</p>
+     <p  id="divHelpContent2p5"  class="noindent">Tap on a book to open it.</p>
+     <p  id="divHelpContent2p6"  class="noindent">Tap on the right icon of a book to open its metadata.</span> (<i class='icon-reorder'></i>)</p>
+     <p                          class="noindent"><span id="divHelpContent2p7">You can modify the global preferences of the app in the Options page.</span> (<i class='icon-reorder'></i>)</p>
+
+     <div class="separator">&#160;</div>
+     <h2 id="divHelpContent3p1"  class="noindent">Reader View</h2>
+     <p  id="divHelpContent3p2"  class="noindent">Chapters with an associated audio track show the track number in the title header (e.g., [1]).</p>
+     <p                          class="noindent"><span id="divHelpContent3p10">Tap on the top left icon to go back to the library View.</span> (<i class='icon-signout'></i>)</p>
+     <p  id="divHelpContent3p3"  class="noindent">Tap on the title header to show/hide the bottom bar.</p>
+     <p                          class="noindent"><span id="divHelpContent3p11">Tap on the top right icon to open the preferences.</span> (<i class='icon-reorder'></i>)</p>
+     <p  id="divHelpContent3p6"  class="noindent">Tap on a text fragment to play the audio from the beginning of that fragment.</p>
+     <p  id="divHelpContent3p7"  class="noindent">Tap on the active fragment to pause. Tap again to resume.</p>
+     <p  id="divHelpContent3p8"  class="noindent">Tap on the central button of the navigation bar to show/hide more options.</p>
+     <p  id="divHelpContent3p5"  class="noindent">Swipe left/right to go to the next/previous chapter.</p>
+     <p  id="divHelpContent3p12" class="noindent">Tap on the left/right blank margins to scroll up/down the text. (You need to enable this feature in the Options.)</p>
+
+     <!-- ACKNOWLEDGMENTS -->
+     <div class="separator">&#160;</div>
+     <div id="colHelpContent4p1" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Acknowledgments</h3>
+      <p  id="divHelpContent4p2" class="noindent">Antonio Tombolini and the technical staff of Simplicissimus Book Farm provided many useful comments.</p>
+      <p  id="divHelpContent4p3" class="noindent">Marta D'Asaro designed the icon.</p>
+      <p  id="divHelpContent4p4" class="noindent">Iacopo Balocco suggested embedding the OpenDyslexic font.</p>
+      <p  id="divHelpContent4p5" class="noindent">Carlo Fantozzi and Nicola Zago suggested several UI enhancements.</p>
+      <p  id="divHelpContent4p6" class="noindent">Several users of the SBF forum provided precious feedback.</p>
+      <p  id="divHelpContent4p6" class="noindent">Marco Iannacone suggested embedding the TestMe font.</p>
+      <p  id="divHelpContent4p7" class="noindent">Fabrizio Venerandi inspired the EPUB reader options for dealing with non linear spine items.</p>
+     </div>
+
+     <!-- TRANSLATORS -->
+     <div id="colHelpContent5p1" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Translators</h3>
+      <p  id="divHelpContent5p2" class="noindent">EN, IT: ReadBeyond</p>
+      <p  id="divHelpContent5p3" class="noindent">DE, ES, FR, PL, TR: Simplicissimus Book Farm</p>
+      <p  id="divHelpContent5p4" class="noindent">DA: the initial core was kindly donated by Patrizia Barbieri and Francesco Caviglia</p>
+      <p  id="divHelpContent5p5" class="noindent"><strong>Note</strong>: for DA, DE, ES, FR, PL, TR languages, many strings added in v3.0.0 have been translated automatically. If you would like to clean them up, or you want to translate Minstrel in a new language, please contact us (<tt>minstrel@readbeyond.it</tt>). We will be very happy to include your translation and credit you for your work.</p>
+     </div>
+
+     <!-- TECH INFO -->
+     <div id="colHelpContent6p1" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Technical Information</h3>
+      <p  id="divHelpContent6p2" class="noindent">Please visit the Developers page: <a class="ui-link" href="http://www.readbeyond.it/minstrel/developers.html">www.readbeyond.it/minstrel/developers.html</a></p>
+      <p  id="divHelpContent6p3" class="noindent">Comments and bug reports: <a class="ui-link" href="https://github.com/readbeyond/minstrel/">github.com/readbeyond/minstrel</a> or <tt>minstrel@readbeyond.it</tt></p>
+     </div>
+
+     <!-- LEGAL INFO -->
+     <div id="colHelpContent7p1" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Legal Information</h3>
+
+      <!-- LICENSE -->
+      <h2 class="noindent">License</h2>
+      <p  class="noindent">Copyright © 2013-2015, ReadBeyond, Padova, Italy</p>
+      <p  class="noindent">All Rights Reserved.</p>
+      <p  class="noindent">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+      <!-- PRIVACY POLICY -->
+      <div class="separator">&#160;</div>
+      <h2 class="noindent">Privacy Policy</h2>
+      <p  class="noindent">We value your privacy as much as we value ours. ReadBeyond does not collect any data about your eBooks, reading preferences, or reading statistics. On Android, the Network connection permission is requested solely because Minstrel uses a WebView ("in-app browser") to render the eBooks. The app does not send data to nor receive data from the Internet, except for downloading a file when the user selects "Open with Minstrel" in the browser.</p>
+
+      <!-- FONT LICENSES -->
+      <div class="separator">&#160;</div>
+      <h2 class="noindent">Font Licenses</h2>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>Amaranth</h3>
+       <p class="noindent">Copyright © 2011, Gesine Todt (hallo@gesine-todt.de), with Reserved Font Name Amaranth. This Font Software is licensed under the SIL Open Font License, Version 1.1.</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://scripts.sil.org/OFL">http://scripts.sil.org/OFL</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>Andika</h3>
+       <p class="noindent">Copyright © 2004-2011, SIL International (http://scripts.sil.org), with Reserved Font Names 'Andika' and 'SIL'. This Font Software is licensed under the SIL Open Font License, Version 1.1.</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://scripts.sil.org/OFL">http://scripts.sil.org/OFL</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>Avería Serif</h3>
+       <p class="noindent">Copyright © 2011, Dan Sayers (i@iotic.com), with Reserved Font Name Avería Serif. This Font Software is licensed under the SIL Open Font License, Version 1.1.</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://scripts.sil.org/OFL">http://scripts.sil.org/OFL</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>Charis SIL</h3>
+       <p class="noindent">This Font Software is Copyright © 1997-2011, SIL International (http://scripts.sil.org/) with Reserved Font Names "Charis" and "SIL". This Font Software is licensed under the SIL Open Font License, Version 1.1.</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://scripts.sil.org/OFL">http://scripts.sil.org/OFL</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>Font Awesome</h3>
+       <p class="noindent">Copyright © 2014, Dave Gandy (http://fontawesome.io), with Reserved Font Name Font Awesome. This Font Software is licensed under the SIL Open Font License, Version 1.1.</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://scripts.sil.org/OFL">http://scripts.sil.org/OFL</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>Gentium</h3>
+       <p class="noindent">Copyright © 2003-2008, SIL International (http://scripts.sil.org), with Reserved Font Names "Gentium" and "SIL". This Font Software is licensed under the SIL Open Font License, Version 1.1.</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://scripts.sil.org/OFL">http://scripts.sil.org/OFL</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>EB Garamond</h3>
+       <p  class="noindent">Copyright © 2010, 2011, 2012 Georg Duffner (http://www.georgduffner.at). This Font Software is licensed under the SIL Open Font License, Version 1.1.</p>
+       <p  class="noindent">Web: <a class="ui-link" href="http://scripts.sil.org/OFL">http://scripts.sil.org/OFL</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>OpenDyslexic</h3>
+       <p class="noindent">Copying is an act of love. Please copy. OpenDyslexic (open-dyslexic) by Abelardo Gonzalez is licensed under a Creative Commons Attribution 3.0 Unported License. Based on a work at dyslexicfonts.com.</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://opendyslexic.org/">http://opendyslexic.org/</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>Roboto</h3>
+       <p class="noindent">Copyright © 2012 Christian Robertson (https://plus.google.com/110879635926653430880/about). This Font Software is licensed under the Apache License, Version 2.0.</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://www.google.com/fonts/specimen/Roboto">http://www.google.com/fonts/specimen/Roboto</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>TestMe</h3>
+       <p class="noindent">Copyright © 2013 Luciano Perondi (www.synsemia.org|molotro@gmail.com). Derived from Titillium Copyright © 2008-2010, Accademia di Belle Arti di Urbino (www.campivisivi.net|direzione@accademiadiurbino.it), with Reserved Font Name TestMe. This Font Software is licensed under the SIL Open Font License, Version 1.1.</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://scripts.sil.org/OFL">http://scripts.sil.org/OFL</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>Volkhov</h3>
+       <p class="noindent">Copyright © 2011, Cyreal (www.cyreal.org), with Reserved Font Name "Volkhov". This Font Software is licensed under the SIL Open Font License, Version 1.1.</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://scripts.sil.org/OFL">http://scripts.sil.org/OFL</a></p>
+      </div>                                
+
+      <!-- THIRD PARTY LICENSES -->
+      <div class="separator">&#160;</div>
+      <h2 class="noindent">Third-Party Licenses and Trademarks</h2>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>Apache Cordova</h3>
+       <p class="noindent">This app has been compiled using Apache Cordova 3.6 by the Apache Software Foundation, released under the terms of the Apache License, Version 2.0.</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://cordova.apache.org/">http://cordova.apache.org/</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>cssbeautify.js</h3>
+       <p class="noindent">This app includes cssbeautify.js code by Ariya Hidayat (Sencha Inc.), released under the terms of the MIT License.</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://cssbeautify.org/">http://cssbeautify.org/</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>EPUB</h3>
+       <p class="noindent">EPUB is a registered trademark of the International Digital Publishing Forum (IDPF).</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://idpf.org/">http://idpf.org/</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>Hammer.js</h3>
+       <p class="noindent">This app includes Hammer.js code by Jorik Tangelder, released under the terms of the MIT License.</p>
+       <p class="noindent">Web: <a class="ui-link" href="https://github.com/EightMedia/hammer.js">https://github.com/EightMedia/hammer.js</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>jQuery</h3>
+       <p class="noindent">This app includes jQuery 1.9.1 code by the jQuery Foundation, released under the terms of the MIT License.</p>
+       <p class="noindent">Web: <a class="ui-link" href="https://jquery.org/">https://jquery.org/</a></p>
+      </div>
+      
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>jQuery Mobile</h3>
+       <p class="noindent">This app includes jQuery Mobile code by the jQuery Foundation, released under the terms of the MIT License.</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://jquerymobile.com/">http://jquerymobile.com/</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>nativeDroid</h3>
+       <p class="noindent">The UI theme is nativeDroid by Raphael Wildhaber.</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://nativedroid.godesign.ch/">http://nativedroid.godesign.ch/</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>node-gettext</h3>
+       <p class="noindent">This app includes portions of node-gettext code by Andris Reinman, released under the terms of the MIT License.</p>
+       <p class="noindent">Web: <a class="ui-link" href="https://github.com/andris9/node-gettext">https://github.com/andris9/node-gettext</a></p>
+      </div>
+      
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>Objective-Zip</h3>
+       <p class="noindent">On iOS, this app uses the Objective-Zip wrapper for Zlib and MiniZip by Flying Dolphin Studio, released under the terms of the New BSD License.</p>
+       <p class="noindent">Web: <a class="ui-link" href="https://github.com/flyingdolphinstudio/Objective-Zip">https://github.com/flyingdolphinstudio/Objective-Zip</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>Sonic</h3>
+       <p class="noindent">On Android, this app uses the Sonic library by Bill Cox, released under the terms of the GNU Lesser General Public Licensee 2.1.</p>
+       <p class="noindent">Web: <a class="ui-link" href="http://dev.vinux-project.org/sonic/">http://dev.vinux-project.org/sonic/</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>Spectrum</h3>
+       <p class="noindent">This app includes Spectrum code by Brian Grinstead, released under the terms of the MIT License.</p>
+       <p class="noindent">Web: <a class="ui-link" href="https://bgrins.github.io/spectrum/">https://bgrins.github.io/spectrum/</a></p>
+      </div>
+
+      <div data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+       <h3>sprintf.js</h3>
+       <p class="noindent">This app includes sprintf.js code by Ash Searle, released under the terms of the "This code is unrestricted: you are free to use it however you like." license.</p>
+      </div>
+     </div>
+
+    </div>
+   </div>
+   <!-- END of content -->
+
+   <!-- BEGIN of footer -->
+   <div data-id="persistentFooter" data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" data-hide-during-focus="">
+    <div data-role="navbar">
+     <ul>
+      <li><a id="btnHelpBack" href="#" data-rel="back" data-icon="circle-arrow-left">Back</a></li>
+     </ul>
+    </div>
+   </div>
+   <!-- END of footer -->
+
+  </div>
+  <!-- END of HELP -->
+
+ </body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "readbeyond-plugin-librarian",
+  "version": "3.0.1",
+  "description": "This plugin performs file discovery and reads metadata to populate the library.",
+  "cordova": {
+    "id": "readbeyond-plugin-librarian",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+  },
+  "keywords": [
+    "cordova",
+    "librarian",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "peerDependencies": {
+  },
+  "author": "ReadBeyond",
+  "license": "MIT"
+}

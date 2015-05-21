@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>EPUB Reader</title>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport"         content="user-scalable=no, width=device-width" />
+
+  <!-- BEGIN nativedroid -->
+  <link                 rel="stylesheet" type="text/css" href="css/nd/font-awesome.min.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/nd/jquerymobile.css" />
+  <link id="rbUIFont"   rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.roboto.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.css" />
+  <link id="jQMnDTheme" rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.light.css" />
+  <link id="jQMnDColor" rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.color.blue.css" />
+  <!-- END nativedroid -->
+
+  <!-- BEGIN logic -->
+  <link                 rel="stylesheet" type="text/css" href="css/app.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/fonts.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/highlight.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/spectrum.css" />
+
+  <script type="text/javascript" src="js/rb.storage.js"></script>
+  <script type="text/javascript" src="js/rb.config.js"></script>
+  <script type="text/javascript" src="js/rb.utilities.js"></script>
+  <script type="text/javascript" src="js/rb.app.js"></script>
+  <script type="text/javascript" src="js/rb.ui.js"></script>
+  <script type="text/javascript" src="js/rb.i18n.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.da.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.de.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.en.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.es.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.fr.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.it.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.pl.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.tr.js"></script>
+  <script type="text/javascript" src="js/rb.epub.reader.js"></script>
+  <script type="text/javascript" src="js/rb.jsepub.js"></script>
+  <!-- END logic -->
+
+  <!-- BEGIN libraries -->
+  <script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
+  <!-- BEGIN initialize JQM -->
+  <!-- This MUST be loaded AFTER jquery but BEFORE jquery.mobile -->
+  <script type="text/javascript">
+      $(document).bind("mobileinit", function() {
+          RB.UI.initializeJQM();
+      });
+  </script>
+  <!-- END initialize JQM -->
+  <script type="text/javascript" src="lib/jquery.scrollTo-1.4.3.1-min.js"></script>
+  <script type="text/javascript" src="lib/jquery.mobile-1.3.2.min.js"></script>
+
+  <script type="text/javascript" src="lib/jquery.panzoom.js"></script>
+  <script type="text/javascript" src="lib/jquery.wheel.js"></script>
+
+  <script type="text/javascript" src="lib/sprintf.js"></script>
+  <script type="text/javascript" src="lib/hammer.min.js"></script>
+  <script type="text/javascript" src="lib/spectrum.js"></script>
+  <script type="text/javascript" src="lib/cssbeautify.js"></script>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <!-- END libraries -->
+
+  <script type="text/javascript">
+      // bind update UI
+      $(document).on('pagebeforeshow', "#divReader", RB.EPUBReader.initializeUI);
+
+      // load UI font
+      // done here to prevent flickering
+      RB.UI.applyUIFont();
+
+      // load light or dark CSS
+      // done here to prevent flickering
+      RB.UI.applyNightMode();
+
+      // bind document events
+      document.addEventListener('deviceready', RB.EPUBReader.initializePage, false);
+      document.addEventListener('backbutton',  RB.EPUBReader.onBackButton,   false);
+      document.addEventListener('resume',      RB.UI.dimSystemBar,           false)
+       
+      // if debug, then trigger onDeviceReady  
+      if (RB.App.isDebug()) {
+          RB.EPUBReader.initializePage();
+      }
+  </script>
+ </head>
+ <body>
+
+  <!-- BEGIN EPUBREADER -->
+  <div data-role="page" id="divReader" data-theme="b">
+
+   <!-- BEGIN header -->
+   <div id="divHeader" data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+    <a  href="#" id="btnExit"       onclick="RB.EPUBReader.exit();"><i class='icon-signout'></i></a>
+    <h1          id="txtEPUBReaderTitle">Minstrel</h1>
+    <a><span     id="btnHeaderMenu" class="bigger"><i class='icon-reorder'></i></span></a>
+   </div>
+   <!-- END   header -->
+
+   <!-- BEGIN content -->
+   <div id="divContentContainer" date-role="content" data-theme="b">
+    <div id="divContent">
+     <div id="divContentInner">
+      <div id="divContentColumn"></div>
+      <div id="divContentColumnMask"></div>
+     </div>
+    </div>
+    <div id="divContent2">
+     <div id="divContentInner2">
+      <div id="divContentColumn2"></div>
+      <div id="divContentColumnMask2"></div>
+     </div>
+    </div>
+   </div>
+   <!-- END   content -->
+
+   <!-- BEGIN footer -->
+   <div id="divFooterAll" data-id="persistentFooter" data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" data-hide-during-focus="" class="initiallyHidden">
+    <div id="divFooterExtra"></div>
+    <!-- BEGIN divFooterTop -->
+    <div id="divFooterTop">
+     <!-- BEGIN divFooterSliderContainer -->
+     <div id="divFooterSliderContainer">
+      <!-- BEGIN divFooterSliderTop -->
+      <div id="divFooterSliderTop">
+       <div id="divFooterSliderLeft">
+        <span class="vcenter">
+         <span><i id="txtSliderAudioStateIcon" class='icon-play'></i></span>
+         &#160;
+         <span id="txtSliderAudioPosition">00:00</span>
+        </span>
+       </div>
+       <div id="divFooterSliderContainerInner"></div>
+      </div>
+      <!-- END   divFooterSliderTop -->
+      <!-- BEGIN divFooterSliderBottom -->
+      <div id="divFooterSliderBottom" data-role="navbar">
+       <ul>
+        <li><a id="btnQuickBar1" data-icon="lock"></a></li>
+        <li><a id="btnQuickBar2" data-icon='backward'></a></li>
+        <li><a id="btnQuickBar3" data-icon='list-ol'></a></li>
+        <li><a id="btnQuickBar4" data-icon='forward'></a></li>
+        <li><a id="btnQuickBar5" data-icon='reorder'></a></li>
+       </ul>
+      </div>
+      <!-- END   divFooterSliderBottom -->
+     </div>
+     <!-- END   divFooterSliderContainer -->
+    </div>
+    <!-- END   divFooterTop -->
+    <!-- BEGIN divFooterBottom -->
+    <div id="divFooterBottom">
+     <!-- BEGIN divFooterPlayer -->
+     <div id="divFooterPlayer" data-role="navbar">
+      <ul>
+       <li><a id="btnAudioStop"      data-icon="stop">Stop</a></li>
+       <li><a id="btnScroll"         data-icon="check">Scroll</a>
+       <li><a id="txtAudioPosition"  data-icon="exchange">0:00:00</a></li>
+       <li><a id="btnPlaylist"       data-icon="list-ol">Playlist</a></li>
+       <li><a id="btnAudioPlayPause" data-icon="play">Play</a></li>
+      </ul>
+     </div>
+     <!-- END   divFooterPlayer -->
+     <!-- BEGIN divFooterNavBar -->
+     <div id="divFooterNavBar" data-role="navbar">
+      <ul>
+       <li><a id="btnPrevious"          data-icon="step-backward">Previous</a></li>
+       <li><a id="btnDialogPreferences" data-icon="reorder">Preferences</a></li>
+       <li><a id="btnPlayer"            data-icon="exchange">Player</a></li>
+       <li><a id="btnContents"          data-icon="list-ol">Contents</a></li>
+       <li><a id="btnNext"              data-icon="step-forward">Next</a></li>
+      </ul>
+     </div>
+     <!-- END   divFooterNavBar -->
+    </div>
+    <!-- END   divFooterBottom -->
+   </div>
+   <!-- END footer -->
+
+   <!-- BEGIN POPUP first time -->
+   <div data-role="popup" id="divPopupFirstTime" data-theme="b">
+    <div data-role="header" data-theme="b">
+     <h3 id="txtFTP1">New book</h3>
+    </div>
+    <div data-role="content" data-theme="b">
+     <p class="popupText">
+      <span id="txtFTP2">Swipe left/right to change chapter.</span><br/>
+      <span id="txtFTP3">Chapters with audio have a ★ in the title bar.</span><br/>
+      <span id="txtFTP4">Touch text or press Play to activate the audio rendition.</span><br/>
+      <span id="txtFTP5">Touch the title bar to open the preferences panel.</span><br/>
+      <span id="txtFTP7">(You can disable this popup from Home &lt; Settings &lt; EPUB.)</span><br/><br/>
+      <span id="txtFTP6">Happy reading+listening from ReadBeyond!</span>
+     </p>
+     <div class="showastabs center nobg">
+      <a id="btnFTPClose" class="border" href="#" data-rel="back" data-icon="ok" data-role="button" data-inline="true">OK</a>
+     </div>
+    </div>
+   </div>
+   <!-- END   POPUP first time -->
+
+   <!-- BEGIN POPUP notice -->
+   <div data-role="popup" id="divPopupNotice" data-theme="b">
+    <div data-role="header" data-theme="b">
+     <h1 id="txtNotice1">Warning</h1>
+    </div>
+    <div data-role="content" data-theme="b">
+     <p class="popupText">
+      <span id="txtNotice2">This ebook does not appear to be an EPUB 3 Audio-eBook.</span><br/>
+      <span id="txtNotice3">ReadBeyond does not guarantee it will be rendered properly.</span><br/>
+      <span id="txtNotice4">If something strange occurs, please terminate Minstrel and start it again.</span><br/>
+      <span id="txtNotice5">(You can disable this popup from Home &lt; Settings &lt; EPUB.)</span><br/><br/>
+     </p>
+     <div class="showastabs center nobg">
+      <a id="btnNoticeClose" class="border" href="#" data-rel="back" data-icon="ok" data-role="button" data-inline="true">OK</a>
+     </div>
+    </div>
+   </div>
+   <!-- END   POPUP notice -->
+
+   <!-- BEGIN POPUP quit -->
+   <div data-role="popup" id="divPopupQuit" data-theme="b">
+    <div data-role="header" data-theme="b">
+     <h1 id="txtQuit1">Close book</h1>
+    </div>
+    <div data-role="content" data-theme="b">
+     <p id="txtQuit2" class="popupText">Do you want to close this book and go back to library?</p>
+     <div class="showastabs center nobg ui-grid-a">
+      <div class="ui-block-a"><a id="btnQuitCancel" class="border dialogbutton" href="#" data-rel="back" data-icon="delete" data-role="button" data-inline="true">Cancel</a></div>
+      <div class="ui-block-b"><a id="btnQuitOK"     class="border dialogbutton" href="#" data-icon="ok"  data-role="button" data-inline="true">OK</a></div>
+     </div>
+    </div>
+   </div>
+   <!-- END  POPUP quit -->
+
+   <!-- BEGIN POPUP TOC -->
+   <div data-role="popup" id="divPopupTOC" data-shadow="false" data-tolerance="0" data-theme="b">
+    <div data-role="content" data-theme="b">
+     <div id="divPopupTOCInner">
+      <ul id="lstTOC" data-role="listview" data-inset="true" data-theme="b"></ul>
+     </div>
+    </div>
+   </div>
+   <!-- END   POPUP TOC -->
+
+   <!-- BEGIN POPUP PLAYLIST -->
+   <div data-role="popup" id="divPopupPlaylist"  data-shadow="false" data-tolerance="0" data-theme="b">
+    <div data-role="content" data-theme="b">
+     <div id="divPopupPlaylistInner">
+      <ul id="lstPlaylist" data-role="listview" data-inset="true" data-theme="b"></ul>
+     </div>
+    </div>
+   </div>
+   <!-- END   POPUP PLAYLIST -->
+
+   <!-- BEGIN POPUP preferences -->
+   <div data-role="popup" id="divPopupPreferences" data-shadow="false" data-tolerance="0" data-theme="b">
+    <!-- BEGIN POPUP inner -->
+    <div id="divPopupPreferencesInner">
+     
+     <div id="divPreferencesPopupOnNoHeader">
+      <div                                               data-role="controlgroup"    data-type="vertical" class="border">
+       <a id="btnPreferencesPopupExit"                   data-role="button"          data-icon="signout" onclick="RB.EPUBReader.exit();">Exit</a>
+      </div>
+      <div                                               data-role="controlgroup"    data-type="vertical" class="border">
+       <a id="btnPreferencesPopupToggleFooter"           data-role="button"          data-icon="gear"    onclick="RB.EPUBReader.toggleFooter();">Footer</a>
+      </div>
+      <div class="separator">&#160;</div>
+     </div>
+     
+     <!-- BEGIN POPUP colPreferencesPopupAudio -->
+     <div id="colPreferencesPopupAudio" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Audio</h3>
+         
+      <div                                              data-role="controlgroup"    data-type="vertical" class="border">
+       <a id="btnPreferencesPopupScroll"                data-role="button"          data-icon="check">Scroll</a>
+      </div>
+         
+      <div                                              data-role="controlgroup"    data-type="vertical" class="border">
+       <a id="btnPreferencesPopupTapToPlay"             data-role="button"          data-icon="check">Tap to Play</a>
+      </div>
+         
+      <div id="divPreferencesPopupHighlight"            data-role="controlgroup"    data-type="vertical" class="border">
+       <a id="btnPreferencesPopupHighlight"             data-role="button"          data-icon="check">Highlight</a>
+       <a id="btnPreferencesPopupHighlightStyle"        data-role="button"          data-icon="gear">Style</a>
+      </div>
+         
+      <div id="divPreferencesPopupVolume"               data-role="controlgroup"    data-type="vertical" class="border">
+       <a id="btnPreferencesPopupVolumeIncrease"        data-role="button"          data-icon="chevron-up">Volume</a>
+       <a id="btnPreferencesPopupVolumeDecrease"        data-role="button"          data-icon="chevron-down">Volume</a>
+      </div>
+         
+      <div id="divPreferencesPopupSpeed"                data-role="controlgroup"    data-type="vertical" class="border">
+       <a id="btnPreferencesPopupSpeedFaster"           data-role="button"          data-icon="chevron-up">Faster</a>
+       <a id="btnPreferencesPopupSpeedSlower"           data-role="button"          data-icon="chevron-down">Slower</a>
+       <a id="btnPreferencesPopupSpeedReset"            data-role="button"          data-icon="gear">Reset Rate</a>
+      </div>
+     </div>
+     <!-- END   POPUP colPreferencesPopupAudio -->
+      
+     <!-- BEGIN POPUP colPreferencesPopupTypo -->
+     <div id="colPreferencesPopupTypo" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Text</h3>
+
+      <div                                              data-role="controlgroup"    data-type="vertical" class="border">
+       <a id="btnPreferencesPopupPaginateReflowable"    data-role="button"          data-icon="check">Paginate</a>
+      </div>
+      
+      <div                                              data-role="controlgroup"    data-type="vertical" class="border">
+       <a id="btnPreferencesPopupApplyTypo"             data-role="button"          data-icon="check">Apply Typo</a>
+      </div>
+
+      <div id="divPreferencesPopupTypoInner">
+       <div                                             data-role="controlgroup"    data-type="vertical" class="border">
+        <a id="btnPreferencesPopupFont"                 data-role="button"          data-icon="gear">Font</a>
+        <a id="btnPreferencesPopupFontSizeBigger"       data-role="button"          data-icon="chevron-up">Size</a>
+        <a id="btnPreferencesPopupFontSizeSmaller"      data-role="button"          data-icon="chevron-down">Size</a>
+        <a id="btnPreferencesPopupTextAlign"            data-role="button"          data-icon="gear">Alignment</a>
+        <a id="btnPreferencesPopupTextTransform"        data-role="button"          data-icon="gear">Case</a>
+       </div>
+
+       <div                                             data-role="controlgroup"    data-type="vertical" class="border">
+        <a id="btnPreferencesPopupSpacingBigger"        data-role="button"          data-icon="chevron-up">Spacing</a>
+        <a id="btnPreferencesPopupSpacingSmaller"       data-role="button"          data-icon="chevron-down">Spacing</a>
+       </div>
+              
+       <div                                             data-role="controlgroup"    data-type="vertical" class="border">
+        <a id="btnPreferencesPopupBackColor"            data-role="button"          data-icon="gear">Back Color</a>
+        <a id="btnPreferencesPopupFontColor"            data-role="button"          data-icon="gear">Font Color</a>
+       </div>
+      </div>
+     </div>
+     <!-- END   POPUP colPreferencesPopupTypo -->
+      
+     <!-- BEGIN POPUP colPreferencesPopupMargins -->
+     <div id="colPreferencesPopupMargins" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Margins</h3>
+      
+      <div                                              data-role="controlgroup"    data-type="vertical" class="border">
+       <a id="btnPreferencesPopupMargins"               data-role="button"          data-icon="gear">Margins</a>
+       <a id="btnPreferencesPopupMarginLeftSmaller"     data-role="button"          data-icon="chevron-left">Left</a>
+       <a id="btnPreferencesPopupMarginLeftBigger"      data-role="button"          data-icon="chevron-right">Left</a>
+       <a id="btnPreferencesPopupMarginRightBigger"     data-role="button"          data-icon="chevron-left">Right</a>
+       <a id="btnPreferencesPopupMarginRightSmaller"    data-role="button"          data-icon="chevron-right">Right</a>
+      </div>
+     </div>
+     <!-- END   POPUP colPreferencesPopupMargins -->
+    
+     <!-- BEGIN POPUP colPreferencesPopupMargins -->
+     <div id="colPreferencesPopupBrightness" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Brightness</h3>
+      
+      <div                                              data-role="controlgroup"    data-type="vertical" class="border">
+       <a id="btnPreferencesPopupBrightnessIncrease"    data-role="button"          data-icon="chevron-up">Brightness</a>
+       <a id="btnPreferencesPopupBrightnessDecrease"    data-role="button"          data-icon="chevron-down">Brightness</a>
+      </div>
+     </div>
+     <!-- END   POPUP colPreferencesPopupMargins -->
+    </div>
+    <!-- END   POPUP inner -->
+   </div>
+   <!-- END   POPUP preferences -->
+
+  </div> 
+  <!-- END of EPUBREADER -->
+
+
+
+  <!-- BEGIN DIALOG PREFERENCES -->
+  <!--
+  <div data-role="dialog" id="divDialogPreferences" data-close-btn="right" data-theme="b">
+   <div data-role="header" data-theme="b">
+    <h1 id="txtPreferences" onclick="RB.EPUBReader.onBackButton();">Preferences</h1>
+   </div>
+   <div data-role="content" data-theme="b">
+    
+    <div id="divPreferencesDialogAudio">
+     <div                                           data-role="controlgroup"    data-type="vertical" class="border">
+      <a id="optPreferencesDialogScroll"            data-role="button"          data-icon="check">Scroll</a>
+     </div>
+          
+     <div                                           data-role="controlgroup"    data-type="vertical" class="border">
+      <a id="optPreferencesDialogTapToPlay"         data-role="button"          data-icon="check">Tap to Play</a>
+     </div>
+     
+     <div id="divPreferencesDialogHighlight"        data-role="controlgroup"    data-type="vertical" class="border">
+      <a id="optPreferencesDialogHighlight"         data-role="button"          data-icon="check">Highlight</a>
+      <a id="optPreferencesDialogHighlightStyle"    data-role="button"          data-icon="gear">Style</a>
+     </div>
+     
+     <div id="divPreferencesDialogVolume"           data-role="controlgroup"    data-type="vertical" class="border">
+      <a id="optPreferencesDialogVolume"            data-role="button"          data-icon="gear">Volume</a>
+     </div>
+     
+     <div id="divPreferencesDialogSpeed"            data-role="controlgroup"    data-type="vertical" class="border">
+      <a id="optPreferencesDialogSpeed"             data-role="button"          data-icon="gear">Speed</a>
+     </div>
+    </div>
+
+    <div                                            data-role="controlgroup"    data-type="vertical" class="border">
+     <a id="optPreferencesDialogPaginateReflowable" data-role="button"          data-icon="check">Paginate</a>
+    </div>
+
+    <div                                            data-role="controlgroup"    data-type="vertical" class="border">
+     <a id="optPreferencesDialogApplyTypo"          data-role="button"          data-icon="check">Apply Typo</a>
+    </div>
+
+    <div id="divPreferencesDialogTypo">
+     <div                                           data-role="controlgroup"    data-type="vertical" class="border">
+      <a id="optPreferencesDialogFont"              data-role="button"          data-icon="gear">Font</a>
+      <a id="optPreferencesDialogFontSize"          data-role="button"          data-icon="gear">Size</a>
+      <a id="optPreferencesDialogTextAlign"         data-role="button"          data-icon="gear">Align</a>
+      <a id="optPreferencesDialogTextTransform"     data-role="button"          data-icon="gear">Case</a>
+     </div>
+
+     <div                                           data-role="controlgroup"    data-type="vertical" class="border">
+      <a id="optPreferencesDialogSpacing"           data-role="button"          data-icon="gear">Spacing</a>
+     </div>
+
+     <div                                           data-role="controlgroup"    data-type="vertical" class="border">
+      <a id="optPreferencesDialogMargins"           data-role="button"          data-icon="gear">Margins</a>
+     </div>
+          
+     <div                                           data-role="controlgroup"    data-type="vertical" class="border">
+      <a id="optPreferencesDialogBackColor"         data-role="button"          data-icon="gear">Back Color</a>
+      <a id="optPreferencesDialogFontColor"         data-role="button"          data-icon="gear">Font Color</a>
+     </div>
+    </div>
+      
+    <div class="showastabs center nobg">
+     <a id="optPreferencesDialogClose2" class="border" href="#" data-rel="back" data-icon="ok" data-role="button" data-inline="true">Close</a>
+    </div>
+      
+   </div>
+  </div>
+  -->
+  <!-- END   DIALOG PREFERENCES -->
+
+ </body>
+</html>

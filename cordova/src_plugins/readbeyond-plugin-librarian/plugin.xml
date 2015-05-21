@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin
+    xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="readbeyond-plugin-librarian"
+    version="3.0.1">
+
+    <name>Librarian</name>
+    <description>This plugin performs file discovery and reads metadata to populate the library.</description>
+    <license>MIT</license>
+    <keywords>cordova,readbeyond,librarian</keywords>
+
+    <js-module src="www/Librarian.js" name="Librarian">
+        <clobbers target="window.Librarian" />
+    </js-module>
+    
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Librarian" >
+                <param name="android-package" value="it.readbeyond.minstrel.librarian.Librarian"/>
+            </feature>
+        </config-file>
+        
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:mimeType="application/epub+zip" />
+                <data android:mimeType="application/x-abz" />
+                <data android:mimeType="application/x-cbz" />
+                <data android:mimeType="application/zip" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/epub+zip" />
+                <data android:scheme="http" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:host="*" android:pathPattern=".*\\.epub" android:scheme="http" />
+                <data android:host="*" android:pathPattern=".*\\.epub" android:scheme="file" />
+                <data android:host="*" android:pathPattern=".*\\.epub" android:scheme="content" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/x-abz" />
+                <data android:scheme="http" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:host="*" android:pathPattern=".*\\.abz" android:scheme="http" />
+                <data android:host="*" android:pathPattern=".*\\.abz" android:scheme="file" />
+                <data android:host="*" android:pathPattern=".*\\.abz" android:scheme="content" />
+                <data android:host="*" android:pathPattern=".*\\.abz\\.zip" android:scheme="http" />
+                <data android:host="*" android:pathPattern=".*\\.abz\\.zip" android:scheme="file" />
+                <data android:host="*" android:pathPattern=".*\\.abz\\.zip" android:scheme="content" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/x-cbz" />
+                <data android:scheme="http" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:host="*" android:pathPattern=".*\\.cbz" android:scheme="http" />
+                <data android:host="*" android:pathPattern=".*\\.cbz" android:scheme="file" />
+                <data android:host="*" android:pathPattern=".*\\.cbz" android:scheme="content" />
+                <data android:host="*" android:pathPattern=".*\\.cbz\\.zip" android:scheme="http" />
+                <data android:host="*" android:pathPattern=".*\\.cbz\\.zip" android:scheme="file" />
+                <data android:host="*" android:pathPattern=".*\\.cbz\\.zip" android:scheme="content" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/zip" />
+                <data android:scheme="http" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:host="*" android:pathPattern=".*\\.zip" android:scheme="http" />
+                <data android:host="*" android:pathPattern=".*\\.zip" android:scheme="file" />
+                <data android:host="*" android:pathPattern=".*\\.zip" android:scheme="content" />
+            </intent-filter>
+        </config-file>
+
+        <source-file src="src/android/FormatHandlerAbstractZIP.java" target-dir="src/it/readbeyond/minstrel/librarian" />
+        <source-file src="src/android/FormatHandlerABZ.java"         target-dir="src/it/readbeyond/minstrel/librarian" />
+        <source-file src="src/android/FormatHandlerCBZ.java"         target-dir="src/it/readbeyond/minstrel/librarian" />
+        <source-file src="src/android/FormatHandlerEPUB.java"        target-dir="src/it/readbeyond/minstrel/librarian" />
+        <source-file src="src/android/FormatHandler.java"            target-dir="src/it/readbeyond/minstrel/librarian" />
+        <source-file src="src/android/Format.java"                   target-dir="src/it/readbeyond/minstrel/librarian" />
+        <source-file src="src/android/JSONPrintable.java"            target-dir="src/it/readbeyond/minstrel/librarian" />
+        <source-file src="src/android/Librarian.java"                target-dir="src/it/readbeyond/minstrel/librarian" />
+        <source-file src="src/android/Publication.java"              target-dir="src/it/readbeyond/minstrel/librarian" />
+        <source-file src="src/android/StorageInfo.java"              target-dir="src/it/readbeyond/minstrel/librarian" />
+        <source-file src="src/android/Storage.java"                  target-dir="src/it/readbeyond/minstrel/librarian" />
+        <source-file src="src/android/ZipAsset.java"                 target-dir="src/it/readbeyond/minstrel/librarian" />
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">    
+        <config-file target="config.xml" parent="/*">
+            <feature name="Librarian">
+                <param name="ios-package" value="RBLibrarian" /> 
+            </feature>
+        </config-file>
+        <header-file src="src/ios/RBLibrarian.h"                target-dir="Librarian" />
+        <source-file src="src/ios/RBLibrarian.m"                target-dir="Librarian" />
+        <header-file src="src/ios/EPUBContainerParser.h"        target-dir="Librarian" />
+        <source-file src="src/ios/EPUBContainerParser.m"        target-dir="Librarian" />
+        <header-file src="src/ios/EPUBOPFParser.h"              target-dir="Librarian" />
+        <source-file src="src/ios/EPUBOPFParser.m"              target-dir="Librarian" />
+        <header-file src="src/ios/Format.h"                     target-dir="Librarian" />
+        <source-file src="src/ios/Format.m"                     target-dir="Librarian" />
+        <header-file src="src/ios/FormatHandlerAbstractZIP.h"   target-dir="Librarian" />
+        <source-file src="src/ios/FormatHandlerAbstractZIP.m"   target-dir="Librarian" />
+        <header-file src="src/ios/FormatHandlerABZ.h"           target-dir="Librarian" />
+        <source-file src="src/ios/FormatHandlerABZ.m"           target-dir="Librarian" />
+        <header-file src="src/ios/FormatHandlerCBZ.h"           target-dir="Librarian" />
+        <source-file src="src/ios/FormatHandlerCBZ.m"           target-dir="Librarian" />
+        <header-file src="src/ios/FormatHandlerEPUB.h"          target-dir="Librarian" />
+        <source-file src="src/ios/FormatHandlerEPUB.m"          target-dir="Librarian" />
+        <header-file src="src/ios/FormatHandler.h"              target-dir="Librarian" />
+        <header-file src="src/ios/JSONPrintable.h"              target-dir="Librarian" />
+        <header-file src="src/ios/Publication.h"                target-dir="Librarian" />
+        <source-file src="src/ios/Publication.m"                target-dir="Librarian" />
+        <header-file src="src/ios/UIImage+SimpleResize.h"       target-dir="Librarian" />
+        <source-file src="src/ios/UIImage+SimpleResize.m"       target-dir="Librarian" />
+        <header-file src="src/ios/ZipAsset.h"                   target-dir="Librarian" />
+        <source-file src="src/ios/ZipAsset.m"                   target-dir="Librarian" />
+
+        <!-- for some arcane reasons, this does not work as it should -->
+        <!-- as a workaround we replace Minstrel-Info.plist altogether, see hooks/ -->
+        <!--
+        <config-file target="*-Info.plist" parent="/plist/dict">
+            <key>NSMainNibFile</key>
+            <string></string>
+            <key>NSMainNibFile~ipad</key>
+            <string></string>
+            <key>NSHumanReadableCopyright</key>
+            <string>Copyright ©2013-2015, ReadBeyond, Padova, Italy.</string>
+            <key>UIBackgroundModes</key>
+            <array>
+                <string>audio</string>
+            </array>
+            <key>UIFileSharingEnabled</key>
+            <true/>
+            <key>UIStatusBarHidden</key>
+            <true/>
+            <key>UISupportedInterfaceOrientations</key>
+            <array>
+                <string>UIInterfaceOrientationPortrait</string>
+                <string>UIInterfaceOrientationPortraitUpsideDown</string>
+                <string>UIInterfaceOrientationLandscapeLeft</string>
+                <string>UIInterfaceOrientationLandscapeRight</string>
+            </array>
+            <key>UISupportedInterfaceOrientations~ipad</key>
+            <array>
+                <string>UIInterfaceOrientationPortrait</string>
+                <string>UIInterfaceOrientationLandscapeLeft</string>
+                <string>UIInterfaceOrientationPortraitUpsideDown</string>
+                <string>UIInterfaceOrientationLandscapeRight</string>
+            </array>
+            <key>UIViewControllerBasedStatusBarAppearance</key>
+            <false/>
+            <key>UIWebViewBounce</key>
+            <false/>
+            <key>UTImportedTypeDeclarations</key>
+            <array>
+                <dict>
+                    <key>UTTypeConformsTo</key>
+                    <array>
+                        <string>public.data</string>
+                        <string>public.archive</string>
+                    </array>
+                    <key>UTTypeDescription</key>
+                    <string>EPUB</string>
+                    <key>UTTypeIdentifier</key>
+                    <string>it.readbeyond.epub</string>
+                    <key>UTTypeSize320IconFile</key>
+                    <string>icon</string>
+                    <key>UTTypeSize64IconFile</key>
+                    <string>icon</string>
+                    <key>UTTypeTagSpecification</key>
+                    <dict>
+                        <key>public.filename-extension</key>
+                        <array>
+                            <string>epub</string>
+                            <string>EPUB</string>
+                            <string>zip</string>
+                            <string>ZIP</string>
+                            <string>e0</string>
+                            <string>E0</string>
+                        </array>
+                        <key>public.mime-type</key>
+                        <array>
+                            <string>application/epub+zip</string>
+                        </array>
+                    </dict>
+                </dict>
+                <dict>
+                    <key>UTTypeConformsTo</key>
+                    <array>
+                        <string>public.data</string>
+                        <string>public.archive</string>
+                    </array>
+                    <key>UTTypeDescription</key>
+                    <string>CBZ</string>
+                    <key>UTTypeIdentifier</key>
+                    <string>it.readbeyond.cbz</string>
+                    <key>UTTypeSize320IconFile</key>
+                    <string>icon</string>
+                    <key>UTTypeSize64IconFile</key>
+                    <string>icon</string>
+                    <key>UTTypeTagSpecification</key>
+                    <dict>
+                        <key>public.filename-extension</key>
+                        <array>
+                            <string>cbz</string>
+                            <string>CBZ</string>
+                            <string>zip</string>
+                            <string>ZIP</string>
+                        </array>
+                        <key>public.mime-type</key>
+                        <array>
+                            <string>application/zip</string>
+                        </array>
+                    </dict>
+                </dict>
+                <dict>
+                    <key>UTTypeConformsTo</key>
+                    <array>
+                        <string>public.data</string>
+                        <string>public.archive</string>
+                    </array>
+                    <key>UTTypeDescription</key>
+                    <string>ABZ</string>
+                    <key>UTTypeIdentifier</key>
+                    <string>it.readbeyond.abz</string>
+                    <key>UTTypeSize320IconFile</key>
+                    <string>icon</string>
+                    <key>UTTypeSize64IconFile</key>
+                    <string>icon</string>
+                    <key>UTTypeTagSpecification</key>
+                    <dict>
+                        <key>public.filename-extension</key>
+                        <array>
+                            <string>abz</string>
+                            <string>ABZ</string>
+                            <string>zip</string>
+                            <string>ZIP</string>
+                        </array>
+                        <key>public.mime-type</key>
+                        <array>
+                            <string>application/zip</string>
+                        </array>
+                    </dict>
+                </dict>
+            </array>
+        </config-file>
+        -->
+    </platform>
+
+    <!-- browser -->
+    <!--
+    <platform name="browser">
+        <js-module src="www/browser/Librarian.js" name="BrowserLibrarian">
+            <clobbers target="window.Librarian" />
+        </js-module>
+    </platform>
+    -->
+
+</plugin>

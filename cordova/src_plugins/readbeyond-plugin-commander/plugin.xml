@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin
+    xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="readbeyond-plugin-commander"
+    version="3.0.1">
+
+    <name>Commander</name>
+    <description>This plugin contains a collection of low level, platform-dependent functions.</description>
+    <license>MIT</license>
+    <keywords>cordova,readbeyond,commander</keywords>
+
+    <js-module src="www/Commander.js" name="Commander">
+        <clobbers target="window.Commander" />
+    </js-module>
+    
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Commander" >
+                <param name="android-package" value="it.readbeyond.minstrel.commander.Commander"/>
+            </feature>
+        </config-file>
+        
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file>
+        
+        <source-file src="src/android/Commander.java"   target-dir="src/it/readbeyond/minstrel/commander" />
+        <source-file src="src/android/Storage.java"     target-dir="src/it/readbeyond/minstrel/commander" />
+        <source-file src="src/android/StorageInfo.java" target-dir="src/it/readbeyond/minstrel/commander" />
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">    
+        <config-file target="config.xml" parent="/*">
+            <feature name="Commander">
+                <param name="ios-package" value="RBCommander" /> 
+            </feature>
+        </config-file>
+        <header-file src="src/ios/RBCommander.h" target-dir="Commander" />
+        <source-file src="src/ios/RBCommander.m" target-dir="Commander" />
+    </platform>
+
+    <!-- browser -->
+    <!--
+    <platform name="browser">
+        <js-module src="www/browser/Commander.js" name="BrowserCommander">
+            <clobbers target="window.Commander" />
+        </js-module>
+    </platform>
+    -->
+
+</plugin>

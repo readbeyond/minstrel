@@ -1,0 +1,23 @@
+{
+  "name": "readbeyond-plugin-media",
+  "version": "3.0.1",
+  "description": "This is a tweaked version of the official Cordova Media Plugin for Android, with no dependency from File Plugin, play-only functions (recording removed), and a few bug fixes to work around Cordova bugs management.",
+  "cordova": {
+    "id": "readbeyond-plugin-media",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+  },
+  "keywords": [
+    "cordova",
+    "media",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "peerDependencies": {
+  },
+  "author": "ReadBeyond",
+  "license": "MIT"
+}

@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>CFBundleDevelopmentRegion</key>
+        <string>English</string>
+        
+        <key>CFBundleDisplayName</key>
+        <string>${PRODUCT_NAME}</string>
+        
+        <key>CFBundleExecutable</key>
+        <string>${EXECUTABLE_NAME}</string>
+        
+        <key>CFBundleIconFile</key>
+        <string>icon.png</string>
+        
+        <key>CFBundleIcons</key>
+        <dict>
+            <key>CFBundlePrimaryIcon</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>icon-40</string>
+                    <string>icon-small</string>
+                    <string>icon-60</string>
+                    <string>icon.png</string>
+                    <string>icon@2x</string>
+                    <string>icon-72</string>
+                    <string>icon-72@2x</string>
+                </array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+            </dict>
+        </dict>
+        
+        <key>CFBundleIcons~ipad</key>
+        <dict>
+            <key>CFBundlePrimaryIcon</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>icon-small</string>
+                    <string>icon-40</string>
+                    <string>icon-50</string>
+                    <string>icon-76</string>
+                    <string>icon-60</string>
+                    <string>icon</string>
+                    <string>icon@2x</string>
+                    <string>icon-72</string>
+                    <string>icon-72@2x</string>
+                </array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+            </dict>
+        </dict>
+        
+        <key>CFBundleIdentifier</key>
+        <string>it.readbeyond.minstrel</string>
+        
+        <key>CFBundleInfoDictionaryVersion</key>
+        <string>6.0</string>
+        
+        <key>CFBundleName</key>
+        <string>${PRODUCT_NAME}</string>
+        
+        <key>CFBundlePackageType</key>
+        <string>APPL</string>
+        
+        <key>CFBundleSignature</key>
+        <string>????</string>
+        
+        <key>CFBundleVersion</key>
+        <string>3.0.1</string>
+        
+        <key>CFBundleShortVersionString</key>
+        <string>3.0.1</string>
+        
+        <key>LSRequiresIPhoneOS</key>
+        <true/>
+        
+        <key>NSMainNibFile</key>
+        <string></string>
+        
+        <key>NSMainNibFile~ipad</key>
+        <string></string>
+        
+        <key>UISupportedInterfaceOrientations~ipad</key>
+        <array>
+            <string>UIInterfaceOrientationPortrait</string>
+            <string>UIInterfaceOrientationLandscapeLeft</string>
+            <string>UIInterfaceOrientationPortraitUpsideDown</string>
+            <string>UIInterfaceOrientationLandscapeRight</string>
+        </array>
+        
+        <key>UILaunchImages</key>
+        <array>
+            <dict>
+                <key>UILaunchImageMinimumOSVersion</key>
+                <string>8.0</string>
+                <key>UILaunchImageName</key>
+                <string>Default</string>
+                <key>UILaunchImageOrientation</key>
+                <string>Portrait</string>
+                <key>UILaunchImageSize</key>
+                <string>{320, 480}</string>
+            </dict>
+            <dict>
+                <key>UILaunchImageMinimumOSVersion</key>
+                <string>8.0</string>
+                <key>UILaunchImageName</key>
+                <string>Default</string>
+                <key>UILaunchImageOrientation</key>
+                <string>Landscape</string>
+                <key>UILaunchImageSize</key>
+                <string>{320, 480}</string>
+            </dict>
+            <dict>
+                <key>UILaunchImageMinimumOSVersion</key>
+                <string>8.0</string>
+                <key>UILaunchImageName</key>
+                <string>Default-568h</string>
+                <key>UILaunchImageOrientation</key>
+                <string>Portrait</string>
+                <key>UILaunchImageSize</key>
+                <string>{320, 568}</string>
+            </dict>
+            <dict>
+                <key>UILaunchImageMinimumOSVersion</key>
+                <string>8.0</string>
+                <key>UILaunchImageName</key>
+                <string>Default-568h</string>
+                <key>UILaunchImageOrientation</key>
+                <string>Landscape</string>
+                <key>UILaunchImageSize</key>
+                <string>{320, 568}</string>
+            </dict>
+            <dict>
+                <key>UILaunchImageMinimumOSVersion</key>
+                <string>8.0</string>
+                <key>UILaunchImageName</key>
+                <string>Default-667h</string>
+                <key>UILaunchImageOrientation</key>
+                <string>Portrait</string>
+                <key>UILaunchImageSize</key>
+                <string>{375, 667}</string>
+            </dict>
+            <dict>
+                <key>UILaunchImageMinimumOSVersion</key>
+                <string>8.0</string>
+                <key>UILaunchImageName</key>
+                <string>Default-667h</string>
+                <key>UILaunchImageOrientation</key>
+                <string>Landscape</string>
+                <key>UILaunchImageSize</key>
+                <string>{375, 667}</string>
+            </dict>
+            <dict>
+                <key>UILaunchImageMinimumOSVersion</key>
+                <string>8.0</string>
+                <key>UILaunchImageName</key>
+                <string>Default-736h</string>
+                <key>UILaunchImageOrientation</key>
+                <string>Portrait</string>
+                <key>UILaunchImageSize</key>
+                <string>{414, 736}</string>
+            </dict>
+            <dict>
+                <key>UILaunchImageMinimumOSVersion</key>
+                <string>8.0</string>
+                <key>UILaunchImageName</key>
+                <string>Default-Landscape-736h</string>
+                <key>UILaunchImageOrientation</key>
+                <string>Landscape</string>
+                <key>UILaunchImageSize</key>
+                <string>{414, 736}</string>
+            </dict>
+            <dict>
+                <key>UILaunchImageMinimumOSVersion</key>
+                <string>8.0</string>
+                <key>UILaunchImageName</key>
+                <string>Default-Portrait</string>
+                <key>UILaunchImageOrientation</key>
+                <string>Portrait</string>
+                <key>UILaunchImageSize</key>
+                <string>{768, 1024}</string>
+            </dict>
+            <dict>
+                <key>UILaunchImageMinimumOSVersion</key>
+                <string>8.0</string>
+                <key>UILaunchImageName</key>
+                <string>Default-Landscape</string>
+                <key>UILaunchImageOrientation</key>
+                <string>Landscape</string>
+                <key>UILaunchImageSize</key>
+                <string>{768, 1024}</string>
+            </dict>
+        </array>
+
+
+
+        <!-- CUSTOM BEGIN -->
+        <key>CFBundleDocumentTypes</key>
+        <array>
+            <dict>
+                <key>CFBundleTypeIconFiles</key>
+                <array/>
+                
+                <key>CFBundleTypeName</key>
+                <string>EPUB</string>
+                
+                <key>LSItemContentTypes</key>
+                <array>
+                    <string>it.readbeyond.epub</string>
+                </array>
+            </dict>
+            <dict>
+                <key>CFBundleTypeIconFiles</key>
+                <array/>
+                
+                <key>CFBundleTypeName</key>
+                <string>CBZ</string>
+                
+                <key>LSItemContentTypes</key>
+                <array>
+                    <string>it.readbeyond.cbz</string>
+                </array>
+            </dict>
+            <dict>
+                <key>CFBundleTypeIconFiles</key>
+                <array/>
+                
+                <key>CFBundleTypeName</key>
+                <string>ABZ</string>
+                
+                <key>LSItemContentTypes</key>
+                <array>
+                    <string>it.readbeyond.abz</string>
+                </array>
+            </dict>
+        </array>
+
+        <key>NSMainNibFile</key>
+        <string></string>
+        
+        <key>NSMainNibFile~ipad</key>
+        <string></string>
+        
+        <key>NSHumanReadableCopyright</key>
+        <string>Copyright ©2013-2015, ReadBeyond, Padova, Italy.</string>
+        
+        <key>UIBackgroundModes</key>
+        <array>
+            <string>audio</string>
+        </array>
+        
+        <key>UIFileSharingEnabled</key>
+        <true/>
+        
+        <key>UIStatusBarHidden</key>
+        <true/>
+        
+        <key>UISupportedInterfaceOrientations</key>
+        <array>
+            <string>UIInterfaceOrientationPortrait</string>
+            <string>UIInterfaceOrientationPortraitUpsideDown</string>
+            <string>UIInterfaceOrientationLandscapeLeft</string>
+            <string>UIInterfaceOrientationLandscapeRight</string>
+        </array>
+        
+        <key>UISupportedInterfaceOrientations~ipad</key>
+        <array>
+            <string>UIInterfaceOrientationPortrait</string>
+            <string>UIInterfaceOrientationLandscapeLeft</string>
+            <string>UIInterfaceOrientationPortraitUpsideDown</string>
+            <string>UIInterfaceOrientationLandscapeRight</string>
+        </array>
+        
+        <key>UIViewControllerBasedStatusBarAppearance</key>
+        <false/>
+        
+        <key>UIWebViewBounce</key>
+        <false/>
+        
+        <key>UTImportedTypeDeclarations</key>
+        <array>
+            <dict>
+                <key>UTTypeConformsTo</key>
+                <array>
+                    <string>public.data</string>
+                    <string>public.archive</string>
+                </array>
+                
+                <key>UTTypeDescription</key>
+                <string>EPUB</string>
+                
+                <key>UTTypeIdentifier</key>
+                <string>it.readbeyond.epub</string>
+                
+                <key>UTTypeSize320IconFile</key>
+                <string>icon</string>
+                
+                <key>UTTypeSize64IconFile</key>
+                <string>icon</string>
+                
+                <key>UTTypeTagSpecification</key>
+                <dict>
+                    <key>public.filename-extension</key>
+                    <array>
+                        <string>epub</string>
+                        <string>EPUB</string>
+                        <string>zip</string>
+                        <string>ZIP</string>
+                        <string>e0</string>
+                        <string>E0</string>
+                    </array>
+                    
+                    <key>public.mime-type</key>
+                    <array>
+                        <string>application/epub+zip</string>
+                    </array>
+                </dict>
+            </dict>
+            
+            <dict>
+                <key>UTTypeConformsTo</key>
+                <array>
+                    <string>public.data</string>
+                    <string>public.archive</string>
+                </array>
+                
+                <key>UTTypeDescription</key>
+                <string>CBZ</string>
+                
+                <key>UTTypeIdentifier</key>
+                <string>it.readbeyond.cbz</string>
+                
+                <key>UTTypeSize320IconFile</key>
+                <string>icon</string>
+                
+                <key>UTTypeSize64IconFile</key>
+                <string>icon</string>
+                
+                <key>UTTypeTagSpecification</key>
+                <dict>
+                    <key>public.filename-extension</key>
+                    <array>
+                        <string>cbz</string>
+                        <string>CBZ</string>
+                        <string>zip</string>
+                        <string>ZIP</string>
+                    </array>
+                    
+                    <key>public.mime-type</key>
+                    <array>
+                        <string>application/zip</string>
+                    </array>
+                </dict>
+            </dict>
+            
+            <dict>
+                <key>UTTypeConformsTo</key>
+                <array>
+                    <string>public.data</string>
+                    <string>public.archive</string>
+                </array>
+                
+                <key>UTTypeDescription</key>
+                <string>ABZ</string>
+                
+                <key>UTTypeIdentifier</key>
+                <string>it.readbeyond.abz</string>
+                
+                <key>UTTypeSize320IconFile</key>
+                <string>icon</string>
+                
+                <key>UTTypeSize64IconFile</key>
+                <string>icon</string>
+                
+                <key>UTTypeTagSpecification</key>
+                <dict>
+                    <key>public.filename-extension</key>
+                    <array>
+                        <string>abz</string>
+                        <string>ABZ</string>
+                        <string>zip</string>
+                        <string>ZIP</string>
+                    </array>
+                    
+                    <key>public.mime-type</key>
+                    <array>
+                        <string>application/zip</string>
+                    </array>
+                </dict>
+            </dict>
+        </array>
+        <!-- CUSTOM END -->
+
+
+
+    </dict>
+</plist>

@@ -1,0 +1,577 @@
+/*
+
+(c)2013-2014, ReadBeyond, Padova, Italy
+All rights reserved.
+
+Author: Alberto Pettarin (alberto@readbeyond.it)
+Version: 1.11
+Date: 2014-05-24
+
+Description: main CSS
+
+Changelog:
+1.11 2014-05-24 Remove callouts in iOS
+1.10 2014-03-23 JQM init done right, better UI/UX
+1.09 2014-03-21 UI refinements
+1.08 2014-03-19 Minor edits to slider divs
+1.07 2014-03-18 Added a, button callout suppression
+1.06 2014-01-05 Renamed translation/footnote div
+1.05 2014-01-04 Added translations and footnotes support
+1.04 2013-12-13 Added fixes for headers, footers and slider
+1.03 2013-12-01 Explicitly remove text-shadow from main reader text
+1.02 2013-11-27 Added several fixes for jQM and nativeDroid
+1.01 2013-10-22 Initial release
+
+*/
+
+
+body {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+/* removes callouts in iOS */
+a, button, [data-role="header"], [data-role="footer"], [data-role="navbar"], [data-role="listview"] {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+}
+
+/* fixes dialog defaults */
+.ui-dialog-contain {
+    width: 98%;
+    max-width: 98%;
+    padding: 0px;
+    margin-left: 1%; 
+    margin-right: 1%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+/* fixes popup overflow and opacity */
+.ui-popup-screen.in {
+    overflow: hidden;
+    opacity: 0;
+}
+
+#divContentContainer, #divContent, #divContentInner {
+    background: transparent;
+    margin: 0px;
+    padding: 0px;
+}
+#divContent * {
+    text-shadow: none;
+}
+#divDialogPlaylist {
+    width: 98%;
+    max-width: 98%;
+    padding: 0px;
+    margin-left: 1%; 
+    margin-right: 1%; 
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+#divDialogTOC {
+    width: 98%;
+    max-width: 98%;
+    padding: 0px;
+    margin-left: 1%; 
+    margin-right: 1%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+#divDialogNotice {
+    width: 80%;
+    max-width: 80%;
+    padding: 0px;
+    margin-left: 10%; 
+    margin-right: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+#divDialogLoading {
+    width: 80%;
+    max-width: 80%;
+    padding: 0px;
+    margin-left: 10%; 
+    margin-right: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+#divPopupPreferences-popup {
+    right: 0 !important;
+    left: auto !important;
+}
+#divPopupPreferences {
+    width: 200px;
+    border: 2px solid #000;
+    border-right: none;
+    z-index: 999;
+    overflow: auto;
+}
+#divPopupPreferencesInner {
+    width: 100%;
+    margin-left: 0%;
+    margin-right: 0%;
+}
+#divPopupPreferences .ui-btn {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#divPopupTOC-popup {
+    left: 0 !important;
+    right: auto !important;
+}
+#divPopupTOC {
+    width: 50%;
+    border: 2px solid #000;
+    border-left: none;
+    z-index: 999;
+    overflow: auto;
+}
+#divPopupTOCInner {
+    width: 100%;
+    margin-left: 0%;
+    margin-right: 0%;
+}
+#divPopupTOC .ui-btn {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+li.toc-item-highlighted {
+    font-weight: bold;
+}
+
+#divPopupPlaylist-popup {
+    left: 0 !important;
+    right: auto !important;
+}
+#divPopupPlaylist {
+    width: 50%;
+    border: 2px solid #000;
+    border-left: none;
+    z-index: 999;
+    overflow: auto;
+}
+#divPopupPlaylistInner {
+    width: 100%;
+    margin-left: 0%;
+    margin-right: 0%;
+}
+#divPopupPlaylist .ui-btn {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+li.playlist-item-highlighted {
+    font-weight: bold;
+}
+
+/* temporarily highlight jump target */
+.jump-target-highlighted {
+    background-color: #FFFF99;
+};
+
+/* fixes toc collapsibles */
+.custom-li {
+    padding: 0 !important;
+    border-width:0 !important;
+}
+.custom-bottom-li {
+    border-top-width: 0 !important;  
+}
+.custom-collapsible {
+    margin: 0 !important;   
+    border-top-right-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-width:0 !important;
+}
+
+/* bold the text of buttons */
+.message {
+    font-weight: bold;
+}
+
+/* fixes opacity of loader */
+.ui-loader-default {
+    opacity: 1 !important;
+}
+
+/* greys out disabled buttons */
+.ui-disabled {
+    background: rgba(0,0,0,0.2);
+}
+
+/* small/large screens buttons captions */
+.custom-timer-small {
+    font-size: 70%;
+    font-weight: normal;
+}
+.custom-timer-large {
+    font-weight: normal;
+}
+.custom-navbar-button-small .ui-btn-text {
+    font-size: 60%;
+    font-weight: normal;
+}
+.custom-navbar-button-large .ui-btn-text {
+    font-weight: normal;
+}
+.custom-playlist a {
+    font-weight: normal;
+    text-decoration: none;
+}
+.custom-toc a {
+    font-weight: normal;
+    text-decoration: none;
+}
+
+/* increases the width of the back button in page header */
+.ui-header .ui-btn-left {
+    width: 40px;
+    margin-left: 0px;
+    padding-left: 10px;
+    text-align: left;
+}
+.ui-header .ui-title {
+    margin-top: 8px;
+    margin-left: 50px;
+    margin-right: 50px;
+    overflow: ellipsis;
+}
+.ui-header .ui-btn-right {
+    width: 40px;
+    margin-right: 0px;
+    padding-right: 10px;
+    text-align: right;
+}
+
+/* sets font weight to normal, instead of 300 */
+.ui-page {
+    font-weight: normal;
+}
+
+/* fixes grey background of delete button in search bar */
+.ui-body-b form .ui-btn {
+    background-color: transparent;
+    border: 0;
+}
+
+/* fixes the flickering of the search bar*/
+.ui-header.ui-fixed-hidden {
+    padding: 0;
+    border-top-width: 1px;
+    border-bottom-width: 2px;
+}
+.ui-header-fixed > .ui-btn-icon-notext {
+    top: 6px
+}
+
+/* fixes slider in footer */
+.ui-footer .ui-navbar {
+    box-shadow: none;
+}
+.ui-bar-b.ui-header {
+    box-shadow: none;
+}
+#divFooterAll {
+    border-top: 2px solid #6DCAEC;
+}
+#divFooterSliderContainer {
+    width: 100%;
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+#divFooterSliderLeft {
+    position: absolute;
+    width: 20%;
+    height: 36px;
+    padding-top: 4px;
+    text-align: center;
+}
+#divFooterSliderLeftLeft {
+    float: left;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+}
+#divFooterSliderLeftRight {
+    float: left;
+    left: 20%;
+    height: 100%;
+    width: 80%;
+    text-align: center;
+}
+#divFooterSliderContainerInner {
+    height: 40px;
+    margin-left: 20%;
+}
+#divFooterSliderTop {
+    width: 100%;
+    height: 100%;
+}
+#divFooterSliderBottom {
+    float: left;
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+.footerSliderIcons {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+    padding-top: 10px;
+    min-height: 30px;
+}
+.footerSliderButtonDown {
+	background-color: #6DCAEC;
+}
+
+#divFooterExtra {
+    padding-left: 1em;
+    padding-right: 1em;
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+    overflow: auto;
+}
+
+/* fix checkboxes */
+.ui-icon-checkbox-off:before {
+    /* content:"\f096"; */
+    content:"\f00d";
+}
+.ui-icon-checkbox-on:before {
+    /* content:"\f046"; */
+    content:"\f00c";
+}
+.ui-field-contain {
+    margin: 5px 0px;
+}
+hr.settingsSeparator {
+    margin: 0px 0px;
+}
+
+/* CUSTOM ELEMENTS DEFINITIONS */
+.separator {
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    font-size: 50%;
+    clear: both;
+}
+.smallseparator {
+    margin-bottom: 0em;
+    margin-top: 0em;
+    font-size: 10%;
+}
+.skipAbove1 {
+    margin-top: 1em;
+}
+.skipAbove2 {
+    margin-top: 2em;
+}
+.skipAbove3 {
+    margin-top: 3em;
+}
+.bigger {
+    font-size: 120%;
+}
+.smaller {
+    font-size: 50%;
+}
+.bold {
+    font-weight: bold !important;
+}
+.center {
+    text-align: center;
+}
+.vcenter {
+    vertical-align: middle;
+}
+.border {
+    /* border: 2px black solid; */
+    margin: 5px;
+    padding: 3px;
+}
+div.coverContainer {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    text-align: center;
+}
+img.cover {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    max-width: 100%;
+    max-height: 100%;
+}
+.popupDivPadded {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.popupButton {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.popupText {
+    text-indent: 0px;
+    text-align: justify;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+.initiallyHidden {
+    display: none;
+}
+.noindent {
+    text-indent: 0px;
+    text-align: justify;
+}
+div.paddedContent {
+    padding: 10px;
+}
+div.paddedSettings {
+    padding: 5px;
+}
+.paddedSettings .ui-li-has-thumb {
+    min-height: 0px;
+}
+
+div.metadata {
+    padding: 10px;
+}
+div.metadata .border {
+    margin: 0px;
+}
+div.metadataCoverContainer {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+img.metadataCover {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.metadataLabel {
+    font-weight: bold;
+}
+div.metadataContainer {
+    clear: both;
+    width: 100%;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+div.metadataColumn1 {
+    position: relative;
+    float: left;
+    margin-left: 0%;
+    margin-top: 0px;
+    width: 25%;
+    text-align: left;
+    padding-top: 14px;
+}
+div.metadataColumnInner1 {
+    width: 90%;
+}
+div.metadataColumn2 {
+    position: relative;
+    float: right;
+    width: 75%;
+    text-align: left;
+}
+
+
+
+table.zoneTable {
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+}
+.zoneTable td {
+    text-align: center;
+    border: 2px solid black;
+}
+#zoneTableRow1 {
+    height: 40px;
+}
+#zoneTableRow2 {
+    height: 120px;
+}
+#zoneTableRow3 {
+    height: 40px;
+}
+.zoneTableColumn1 {
+    width: 25%;
+}
+.zoneTableColumn2 {
+    width: 50%;
+}
+.zoneTableColumn3 {
+    width: 25%;
+}
+
+
+/* smaller library for small screen devices */
+img.smaller-icon {
+    margin-left: -5px;
+    width: 70px;
+}
+h4.smaller-text {
+    margin-left: -10px;
+    margin-top: 0px;
+    font-size: 70%;
+    line-height: 1.2em;
+}
+p.smaller-text {
+    margin-left: -10px;
+    font-size: 50%;
+    line-height: 1.2em;
+}
+
+/* notification popup */
+div.notificationPopup {
+    display: block;
+    opacity: 1.0;
+    position: fixed;
+    padding: 10px;
+    text-align: center;
+    background-color: white;
+}
+h1.notificationText {
+    text-align: center;
+    text-transform: none;
+    font-size: 24px;
+    font-color: black;
+}
+
+
+/* lorem ipsum panel */
+div#loremcontainer {
+    height: 200px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 0px;
+    overflow: hidden;
+    border: 2px solid #000;
+}
+
+div#loremipsum {
+    margin-left: 5%;
+    margin-right: 5%;
+    text-align: justify;
+}
+
+/* selected */
+.playlistCurrent {
+    background-color: #6DCAEC;
+}
+.playlistNumber {
+    font-family: monospace;
+}

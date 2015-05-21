@@ -1,0 +1,316 @@
+/*
+
+(c)2013, ReadBeyond, Padova, Italy
+All rights reserved.
+
+Author: Alberto Pettarin (alberto@readbeyond.it)
+Version: 1.05
+Date: 2014-09-30
+
+Description: font inclusion CSS
+
+Changelog:
+1.05 2014-09-30 Changed font dir structure, updated src URLs, added roboto
+1.04 2014-04-10 Added TestMe Sans and TestMe Serif
+1.03 2014-03-02 Added Amaranth
+1.02 2013-10-30 Added Andika and Averia
+1.01 2013-10-22 Initial release
+
+*/
+
+
+
+/* amaranth */
+@font-face {
+    font-family: "amaranth";
+    src: url("fonts/amaranth/R.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "amaranth";
+    src: url("fonts/amaranth/B.otf");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "amaranth";
+    src: url("fonts/amaranth/I.otf");
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: "amaranth";
+    src: url("fonts/amaranth/BI.otf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* andika */
+@font-face {
+    font-family: "andika";
+    src: url("fonts/andika/R.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* averiaserif */
+@font-face {
+    font-family: "averiaserif";
+    src: url("fonts/averiaserif/R.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "averiaserif";
+    src: url("fonts/averiaserif/B.otf");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "averiaserif";
+    src: url("fonts/averiaserif/I.otf");
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: "averiaserif";
+    src: url("fonts/averiaserif/BI.otf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* charis */
+@font-face {
+    font-family: "charis";
+    src: url("fonts/charis/R.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ebgaramond */
+@font-face {
+    font-family: "ebgaramond";
+    src: url("fonts/ebgaramond/R.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* gentium */
+@font-face {
+    font-family: "gentium";
+    src: url("fonts/gentium/R.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* opendyslexic */
+@font-face {
+    font-family: "opendyslexic";
+    src: url("fonts/opendyslexic/R.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "opendyslexic";
+    src: url("fonts/opendyslexic/B.otf");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "opendyslexic";
+    src: url("fonts/opendyslexic/I.otf");
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: "opendyslexic";
+    src: url("fonts/opendyslexic/BI.otf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* robotoembedded */
+@font-face {
+    font-family: "robotoembedded";
+    src: url("fonts/robotoembedded/R.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "robotoembedded";
+    src: url("fonts/robotoembedded/B.otf");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "robotoembedded";
+    src: url("fonts/robotoembedded/I.otf");
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: "robotoembedded";
+    src: url("fonts/robotoembedded/BI.otf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* robotocondensedembedded */
+@font-face {
+    font-family: "robotocondensedembedded";
+    src: url("fonts/robotocondensedembedded/R.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "robotocondensedembedded";
+    src: url("fonts/robotocondensedembedded/B.otf");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "robotocondensedembedded";
+    src: url("fonts/robotocondensedembedded/I.otf");
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: "robotocondensedembedded";
+    src: url("fonts/robotocondensedembedded/BI.otf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* testmesans */
+@font-face {
+    font-family: "testmesans";
+    src: url("fonts/testmesans/R.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "testmesans";
+    src: url("fonts/testmesans/B.otf");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "testmesans";
+    src: url("fonts/testmesans/R.otf");
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: "testmesans";
+    src: url("fonts/testmesans/B.otf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* testmeserif */
+@font-face {
+    font-family: "testmeserif";
+    src: url("fonts/testmeserif/R.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "testmeserif";
+    src: url("fonts/testmeserif/B.otf");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "testmeserif";
+    src: url("fonts/testmeserif/R.otf");
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: "testmeserif";
+    src: url("fonts/testmeserif/B.otf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* volkhov */
+@font-face {
+    font-family: "volkhov";
+    src: url("fonts/volkhov/R.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "volkhov";
+    src: url("fonts/volkhov/B.otf");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "volkhov";
+    src: url("fonts/volkhov/I.otf");
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: "volkhov";
+    src: url("fonts/volkhov/BI.otf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+
+
+/* testme2alt */
+@font-face {
+    font-family: "testme2alt";
+    src: url("fonts/testme2alt/R.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "testme2alt";
+    src: url("fonts/testme2alt/B.otf");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "testme2alt";
+    src: url("fonts/testme2alt/R.otf");
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: "testme2alt";
+    src: url("fonts/testme2alt/B.otf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* testme2sans */
+@font-face {
+    font-family: "testme2sans";
+    src: url("fonts/testme2sans/R.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "testme2sans";
+    src: url("fonts/testme2sans/B.otf");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "testme2sans";
+    src: url("fonts/testme2sans/R.otf");
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: "testme2sans";
+    src: url("fonts/testme2sans/B.otf");
+    font-weight: bold;
+    font-style: italic;
+}
+

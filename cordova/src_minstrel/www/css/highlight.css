@@ -1,0 +1,156 @@
+/*
+
+(c)2013, ReadBeyond, Padova, Italy
+All rights reserved.
+
+Author: Alberto Pettarin (alberto@readbeyond.it)
+Version: 1.02
+Date: 2013-11-30
+
+Description: highlighting CSS
+
+Changelog:
+1.02 2013-11-30 Removed bold, reordered
+1.01 2013-10-22 Initial release
+
+*/
+
+
+
+/* pale yellow / pale green */
+.rbActive0 {
+    background-color: #FFFF99;
+}
+.rbPaused0 {
+    background-color: #99FF99;
+}
+
+/* pale cyan / dark blue */
+.rbActive1 {
+    background-color: #CCFFFF;
+}
+.rbPaused1 {
+    background-color: #0099FF;
+}
+
+/* pale violet / dark violet */
+.rbActive2 {
+    background-color: #CCCCFF;
+}
+.rbPaused2 {
+    background-color: #6600FF;
+}
+
+/* pale green / dark green */
+.rbActive3 {
+    background-color: #99FF99;
+}
+.rbPaused3 {
+    background-color: #00FF00;
+}
+
+/* pale orange / dark orange */
+.rbActive4 {
+    background-color: #FFCC99;
+}
+.rbPaused4 {
+    background-color: #FF9900;
+}
+
+/* pale pink / dark red */
+.rbActive5 {
+    background-color: #FFCCCC;
+}
+.rbPaused5 {
+    background-color: #FF0000;
+}
+
+/* underline / dotted */
+.rbActive6 {
+    border-bottom: 3px solid black;
+}
+.rbPaused6 {
+    border-bottom: 3px dotted black;
+}
+
+/* black / dotted */
+.rbActive7 {
+    color: black;
+}
+.rbPaused7 {
+    color: black;
+    border-bottom: 3px dotted black;
+}
+
+/* red / dotted */
+.rbActive8 {
+    color: red;
+}
+.rbPaused8 {
+    color: red;
+    border-bottom: 3px dotted black;
+}
+
+/* green / dotted */
+.rbActive9 {
+    color: green;
+}
+.rbPaused9 {
+    color: green;
+    border-bottom: 3px dotted black;
+}
+
+/* blue / dotted */
+.rbActive10 {
+    color: blue;
+}
+.rbPaused10 {
+    color: blue;
+    border-bottom: 3px dotted black;
+}
+
+/* white / dotted */
+.rbActive11 {
+    color: white;
+}
+.rbPaused11 {
+    color: white;
+    border-bottom: 3px dotted black;
+}
+
+/* 125% / 125% dotted */
+.rbActive12 {
+    font-size: 125%;
+}
+.rbPaused12 {
+    font-size: 125%;
+    border-bottom: 3px dotted black;
+}
+
+/* 150% / 150% dotted */
+.rbActive13 {
+    font-size: 150%;
+}
+.rbPaused13 {
+    font-size: 150%;
+    border-bottom: 3px dotted black;
+}
+
+/* 175% / 175% dotted */
+.rbActive14 {
+    font-size: 175%;
+}
+.rbPaused14 {
+    font-size: 175%;
+    border-bottom: 3px dotted black;
+}
+
+/* 200% / 200% dotted */
+.rbActive15 {
+    font-size: 200%;
+}
+.rbPaused15 {
+    font-size: 200%;
+    border-bottom: 3px dotted black;
+}
+

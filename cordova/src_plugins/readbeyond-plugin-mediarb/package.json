@@ -1,0 +1,25 @@
+{
+  "name": "readbeyond-plugin-mediarb",
+  "version": "3.0.1",
+  "description": "This is a tweaked version of the official Cordova Media Plugin, with no dependency from File Plugin, play-only functions (recording removed), playback rate setting, support for Android and iOS, and a few bug fixes to work around Cordova bugs management.",
+  "cordova": {
+    "id": "readbeyond-plugin-mediarb",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+  },
+  "keywords": [
+    "cordova",
+    "mediarb",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "peerDependencies": {
+  },
+  "author": "ReadBeyond",
+  "license": "MIT"
+}

@@ -1,0 +1,30 @@
+h1 {
+    font-size:24px;
+    font-weight:normal;
+    margin-top:24px;
+    margin-bottom:24px;
+    padding:0px;
+    text-align:center;
+}
+
+.app {
+    margin-left:5%;
+    width:90%;
+    text-align:center;
+}
+
+.border {
+    border: 5px solid black;
+}
+
+.log {
+    background-color:#dddddd;
+    font-family:monospace;
+    text-align:left;
+}
+
+input {
+    width:100%;
+    margin-top:12px;
+    margin-bottom:12px;
+}

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>EPUB Settings</title>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport"         content="user-scalable=no, width=device-width" />
+
+  <!-- BEGIN nativedroid -->
+  <link                 rel="stylesheet" type="text/css" href="css/nd/font-awesome.min.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/nd/jquerymobile.css" />
+  <link id="rbUIFont"   rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.roboto.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.css" />
+  <link id="jQMnDTheme" rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.light.css" />
+  <link id="jQMnDColor" rel="stylesheet" type="text/css" href="css/nd/jquerymobile.nativedroid.color.blue.css" />
+  <!-- END nativedroid -->
+
+  <!-- BEGIN logic -->
+  <link                 rel="stylesheet" type="text/css" href="css/app.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/fonts.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/highlight.css" />
+  <link                 rel="stylesheet" type="text/css" href="css/spectrum.css" />
+
+  <script type="text/javascript" src="js/rb.storage.js"></script>
+  <script type="text/javascript" src="js/rb.config.js"></script>
+  <script type="text/javascript" src="js/rb.utilities.js"></script>
+  <script type="text/javascript" src="js/rb.app.js"></script>
+  <script type="text/javascript" src="js/rb.ui.js"></script>
+  <script type="text/javascript" src="js/rb.i18n.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.da.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.de.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.en.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.es.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.fr.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.it.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.pl.js"></script>
+  <script type="text/javascript" src="i18n/rb.i18n.tr.js"></script>
+  <script type="text/javascript" src="js/rb.epub.settings.js"></script>
+  <script type="text/javascript" src="js/rb.jsepub.js"></script>
+  <!-- END logic -->
+
+  <!-- BEGIN libraries -->
+  <script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
+  <!-- BEGIN initialize JQM -->
+  <!-- This MUST be loaded AFTER jquery but BEFORE jquery.mobile -->
+  <script type="text/javascript">
+      $(document).bind("mobileinit", function() {
+          RB.UI.initializeJQM();
+      });
+  </script>
+  <!-- END initialize JQM -->
+  <script type="text/javascript" src="lib/jquery.scrollTo-1.4.3.1-min.js"></script>
+  <script type="text/javascript" src="lib/jquery.mobile-1.3.2.min.js"></script>
+
+  <script type="text/javascript" src="lib/sprintf.js"></script>
+  <script type="text/javascript" src="lib/hammer.min.js"></script>
+  <script type="text/javascript" src="lib/spectrum.js"></script>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <!-- END libraries -->
+
+  <script type="text/javascript">
+      // bind update UI
+      $(document).on('pagebeforeshow', "#settings", RB.EPUBSettings.initializeUI);
+
+      // load UI font
+      // done here to prevent flickering
+      RB.UI.applyUIFont();
+
+      // load light or dark CSS
+      // done here to prevent flickering
+      RB.UI.applyNightMode();
+
+      // bind document events
+      document.addEventListener('deviceready', RB.EPUBSettings.initializePage, false);
+      document.addEventListener('backbutton',  RB.UI.onBackButton,             false);
+      document.addEventListener('resume',      RB.UI.dimSystemBar,             false);
+
+      // if debug, then trigger onDeviceReady  
+      if (RB.App.isDebug()) {
+          RB.EPUBSettings.initializePage();
+      }
+  </script>
+ </head>
+ <body>
+
+  <!-- BEGIN of EPUBSETTINGS -->
+  <div data-role="page" id="settings" data-theme="b">
+
+   <!-- BEGIN of header -->
+   <div id="divHeader" data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+    <a href="#" data-rel="back"><i class="icon-signout"></i></a>
+    <h1 id="txtEPUBSettingsHeader" onclick="RB.UI.onBackButton();">EPUB Settings</h1>
+   </div>
+   <!-- END of header -->
+
+   <!-- BEGIN of content -->
+   <div data-role="content">
+
+    <!-- BEGIN of padding -->
+    <div class="paddedContent">
+
+     <!-- BEGIN of reader -->
+     <div id="colSettingsReader" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Reader</h3>
+      <div class="inset">
+       <div class="separator">&#160;</div>
+       <form class="border">
+        <div data-role="fieldcontain">
+         <input  id="inpchkToggleHeader" type="checkbox"/>
+         <label for="inpchkToggleHeader" id="chkToggleHeader">Show header bar on book open</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain">
+         <input  id="inpchkToggleSlider" type="checkbox"/>
+         <label for="inpchkToggleSlider" id="chkToggleSlider">Show progress bar on book open</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain">
+         <input  id="inpchkToggleQuickBar" type="checkbox"/>
+         <label for="inpchkToggleQuickBar" id="chkToggleQuickBar">Show quick bar on book open</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleBottomBar" type="checkbox"/>
+         <label for="inpchkToggleBottomBar" id="chkToggleBottomBar">Show bottom bar on book open</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleFTP" type="checkbox"/>
+         <label for="inpchkToggleFTP" id="chkToggleFTP">Show help on book first open</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleOverrideInitialPage" type="checkbox"/>
+         <label for="inpchkToggleOverrideInitialPage" id="chkToggleOverrideInitialPage">Open at first chapter with audio</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleConfirmQuit" type="checkbox"/>
+         <label for="inpchkToggleConfirmQuit" id="chkToggleConfirmQuit">Confirm before closing book</label>
+        </div>
+       </form>
+       <div class="separator">&#160;</div>
+       <div class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnSettingsOpenDRS" data-role="button" data-icon="gear">Default reader settings</a>
+       </div>
+      </div>
+     </div>
+     <!-- END of reader -->
+
+     <div class="separator">&#160;</div>
+
+     <!-- BEGIN of interactions -->
+     <div id="colSettingsInteractions" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Interaction</h3>
+      <div class="inset">
+       <div class="separator">&#160;</div>
+       <form class="border">
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleShowNoticePopup" type="checkbox"/>
+         <label for="inpchkToggleShowNoticePopup" id="chkToggleShowNoticePopup">Show notice on EPUB 2 book open</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain">
+         <input  id="inpchkToggleCloseTOCImmediately" type="checkbox"/>
+         <label for="inpchkToggleCloseTOCImmediately" id="chkToggleCloseTOCImmediately">Close ToC after selection</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain">
+         <input  id="inpchkToggleClosePlaylistImmediately" type="checkbox"/>
+         <label for="inpchkToggleClosePlaylistImmediately" id="chkToggleClosePlaylistImmediately">Close Playlist after selection</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleInvertSwipe" type="checkbox"/>
+         <label for="inpchkToggleInvertSwipe" id="chkToggleInvertSwipe">Invert swipe gestures</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain">
+         <input  id="inpchkToggleScrollToTopOnPreviousChapter" type="checkbox"/>
+         <label for="inpchkToggleScrollToTopOnPreviousChapter" id="chkToggleScrollToTopOnPreviousChapter">Scroll to top when going to previous chapter</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain">
+         <input  id="inpchkToggleAnimatedScroll" type="checkbox"/>
+         <label for="inpchkToggleAnimatedScroll" id="chkToggleAnimatedScroll">Animated scroll</label>
+        </div>
+       </form>
+       <div class="separator">&#160;</div>
+       <div class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnSettingsChangeScrollAmount" data-role="button" data-icon="user">Scroll amount</a>
+       </div>
+       <div class="separator">&#160;</div>
+       <div class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnSettingsChangeSwipe" data-role="button" data-icon="user">Swipe</a>
+       </div>
+       <!--
+       <div class="separator">&#160;</div>
+       <div class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnSettingsChangeBorder" data-role="button" data-icon="user">Border</a>
+       </div>
+       -->
+       <div class="separator">&#160;</div>
+       <div class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnSettingsChangeDoubleTap" data-role="button" data-icon="user">Double tap</a>
+       </div>
+       <div class="separator">&#160;</div>
+       <div class="border" data-role="controlgroup" data-type="vertical">
+        <a id="btnSettingsChangeTwoFingersTap" data-role="button" data-icon="user">Two fingers tap</a>
+       </div>
+      </div>
+     </div>
+     <!-- END of interactions -->
+
+     <div class="separator">&#160;</div>
+     
+     <!-- BEGIN of touch zones -->
+     <div id="colSettingsTouchZones" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Touch Zones</h3>
+      <div class="inset">
+       <div class="separator">&#160;</div>
+       <form class="border">
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleEPUBZonesEnabled" type="checkbox"/>
+         <label for="inpchkToggleEPUBZonesEnabled" id="chkToggleEPUBZonesEnabled">Touch zones enabled on book open</label>
+        </div>
+       </form>
+       <div class="separator">&#160;</div>
+       <div>
+        <table class="border zoneTable">
+         <tr id="zoneTableRow1">
+          <td id="btnEPUBZone0" class="zoneTableColumn1">0</td>
+          <td id="btnEPUBZone1" class="zoneTableColumn2">2</td>
+          <td id="btnEPUBZone2" class="zoneTableColumn3">3</td>
+         </tr>
+         <tr id="zoneTableRow2">
+          <td id="btnEPUBZone3" class="zoneTableColumn1">4</td>
+          <td id="btnEPUBZone4" class="zoneTableColumn2">5</td>
+          <td id="btnEPUBZone5" class="zoneTableColumn3">6</td>
+         </tr>
+         <tr id="zoneTableRow3">
+          <td id="btnEPUBZone6" class="zoneTableColumn1">7</td>
+          <td id="btnEPUBZone7" class="zoneTableColumn2">8</td>
+          <td id="btnEPUBZone8" class="zoneTableColumn3">9</td>
+         </tr>
+        </table>
+       </div>
+       <div class="separator">&#160;</div>
+       <p id="txtEPUBTouchZone0">Touch a screen zone in the diagram above to assign its action.</p>
+       <!--
+       <p id="txtEPUBTouchZone1">Swipe left/right to display the previous/next chapter or page.</p>
+       <p id="txtEPUBTouchZone2">Double tap or tap with two fingers to show the playlist or the table of contents.</p>
+       -->
+      </div>
+     </div>
+     <!-- END of touch zones -->
+
+     <div class="separator">&#160;</div>
+
+     <!-- BEGIN of audio -->
+     <div id="colSettingsAudio" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Audio</h3>
+      <div class="inset">
+       <div class="separator">&#160;</div>
+       <form class="border">
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleWaitBeforeTurningChapter" type="checkbox"/>
+         <label for="inpchkToggleWaitBeforeTurningChapter" id="chkToggleWaitBeforeTurningChapter">Pause at audio track change</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleBackAudio" type="checkbox"/>
+         <label for="inpchkToggleBackAudio" id="chkToggleBackAudio">Play audio in background</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleSmartPlay" type="checkbox"/>
+         <label for="inpchkToggleSmartPlay" id="chkToggleSmartPlay">Auto start audio</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain">
+         <input  id="inpchkTogglePreloadPrevNext" type="checkbox"/>
+         <label for="inpchkTogglePreloadPrevNext" id="chkTogglePreloadPrevNext">Preload audio for adjacent chapters</label>
+        </div>
+       </form>
+      </div>
+     </div>
+     <!-- END of audio -->
+
+     <div class="separator">&#160;</div>
+
+     <!-- BEGIN of epub3 -->
+     <div id="colSettingsFootnotes" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>EPUB 3</h3>
+      <div class="inset">
+       <div class="separator">&#160;</div>
+       <form class="border">
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleFootnoteLinks" type="checkbox"/>
+         <label for="inpchkToggleFootnoteLinks" id="chkToggleFootnoteLinks">Open EPUB 3 notes in footer</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleNoteLinkDetection" type="checkbox"/>
+         <label for="inpchkToggleNoteLinkDetection" id="chkToggleNoteLinkDetection">Consider links within same XHTML file as note links</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleHighlightNoteLinkTarget" type="checkbox"/>
+         <label for="inpchkToggleHighlightNoteLinkTarget" id="chkToggleHighlightNoteLinkTarget">Highlight note link target</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleTranslationLinks" type="checkbox"/>
+         <label for="inpchkToggleTranslationLinks" id="chkToggleTranslationLinks">Open translations in footer</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleAddLinkExtra" type="checkbox"/>
+         <label for="inpchkToggleAddLinkExtra" id="chkToggleAddLinkExtra">Add link to note/translation</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkTogglePauseOnExtra" type="checkbox"/>
+         <label for="inpchkTogglePauseOnExtra" id="chkTogglePauseOnExtra">Pause on note/translation open</label>
+        </div>
+       </form>
+      </div>
+     </div>
+     <!-- END of epub3 -->
+
+     <div class="separator">&#160;</div>
+
+     <!-- BEGIN of advanced -->
+     <div id="colSettingsAdvanced" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Advanced</h3>
+      <div class="inset">
+       <div class="separator">&#160;</div>
+       <form class="border">
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleSkipNonLinear"             type="checkbox"/>
+         <label for="inpchkToggleSkipNonLinear"             id="chkToggleSkipNonLinear">Skip non-linear contents while navigating</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleTreatNonLinearAsCulDeSac"  type="checkbox"/>
+         <label for="inpchkToggleTreatNonLinearAsCulDeSac"  id="chkToggleTreatNonLinearAsCulDeSac">Treat a non-linear content as a cul-de-sac</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain">
+         <input  id="inpchkToggleEnableReadBeyondHacks"     type="checkbox"/>
+         <label for="inpchkToggleEnableReadBeyondHacks"     id="chkToggleEnableReadBeyondHacks">Enable ReadBeyond customizations</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleAllowFXL"                  type="checkbox"/>
+         <label for="inpchkToggleAllowFXL"                  id="chkToggleAllowFXL">Allow FXL</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleStripCSS"                  type="checkbox"/>
+         <label for="inpchkToggleStripCSS"                  id="chkToggleStripCSS">Ignore publisher's style</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleInjectCustomCSS"           type="checkbox"/>
+         <label for="inpchkToggleInjectCustomCSS"           id="chkToggleInjectCustomCSS">Use custom CSS</label>
+        </div>
+        <hr class="settingsSeparator"/>
+        <div data-role="fieldcontain"> 
+         <input  id="inpchkToggleRunJavascript"             type="checkbox"/>
+         <label for="inpchkToggleRunJavascript"             id="chkToggleRunJavascript">Run Javascript</label>
+        </div>
+       </form>
+       <div class="separator">&#160;</div>
+      </div>
+     </div>
+     <!-- END   of advanced -->
+     
+    </div>
+    <!-- END of padding -->
+   </div>
+   <!-- END of content -->
+
+   <!-- BEGIN of footer -->
+   <div data-id="persistentFooter" data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" data-hide-during-focus="">
+    <div data-role="navbar">
+     <ul>
+      <li><a id="btnSettingsBack" href="#" data-rel="back" data-icon="circle-arrow-left">Back</a></li>
+     </ul>
+    </div>
+   </div>
+   <!-- END of footer -->
+
+  </div>
+  <!-- END of EPUBSETTINGS -->
+
+
+
+  <!-- BEGIN of DRS -->
+  <div data-role="page" id="drs" data-theme="b">
+
+   <!-- BEGIN of header -->
+   <div id="divHeader" data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+    <a href="#" data-rel="back"><i class="icon-signout"></i></a>
+    <h1 id="txtDRSHeader" onclick="RB.UI.onBackButton();">Default reader settings</h1>
+   </div>
+   <!-- END of header -->
+
+   <!-- BEGIN of content -->
+   <div data-role="content">
+    <!-- BEGIN of padding -->
+    <div class="paddedContent">
+     <div id="loremcontainer">
+      <div id="loremipsum">
+       <p>Lorem ipsum dolor sit amet, <span id="loremhighlighted">consectetur adipiscing elit</span>. Aliquam ullamcorper ipsum et lectus iaculis, eget consectetur est tincidunt. Proin eget tempor tortor. Nulla pulvinar lectus enim, ac porttitor erat sodales vel. Phasellus sapien urna, porttitor nec leo vitae, molestie luctus sapien. Nulla iaculis lorem in commodo pulvinar. Nulla euismod fermentum pharetra. Sed pretium faucibus arcu in placerat. Nunc venenatis pretium tincidunt. Nulla non arcu accumsan dolor varius venenatis. Donec sit amet nibh rutrum, convallis felis vel, congue odio. Sed quis hendrerit mauris. Donec vitae dolor felis.</p>
+       <p>Nulla accumsan nibh eget rutrum vehicula. Phasellus placerat tempus purus, ut cursus elit vehicula non. Phasellus vehicula luctus magna a porttitor. Integer at magna ac dolor commodo convallis. Morbi sed tempor diam. Phasellus nec turpis felis. Aliquam tincidunt imperdiet quam et faucibus. Quisque pretium, orci sit amet vestibulum vehicula, sem ligula eleifend elit, eu imperdiet est arcu at augue. Duis ultrices, metus quis iaculis congue, lorem nisi tincidunt nisi, ac mollis erat dui eu tortor. Maecenas tincidunt tortor ut eros pulvinar commodo. Sed et magna orci. Phasellus accumsan, mi eu malesuada iaculis, elit lacus hendrerit neque, id ultricies dui lorem sed urna. Nam ullamcorper fermentum lorem sed ullamcorper. Quisque libero sem, eleifend in elit ut, vulputate accumsan lectus.</p>
+       <p>Curabitur a metus eu erat pharetra auctor et in ante. Curabitur eget nibh condimentum, placerat nisl id, auctor nulla. Duis iaculis tortor nec ipsum euismod, in faucibus dui blandit. Vestibulum dignissim risus erat, sed congue elit sagittis ac. Praesent molestie molestie mauris at aliquet. Vivamus semper eget eros quis adipiscing. Aliquam erat volutpat. Etiam dui magna, ullamcorper vel ornare vel, mollis sed sapien. Nullam condimentum libero sed lacus lobortis commodo. Ut sit amet odio vestibulum, commodo nibh sit amet, aliquam eros. Donec nec lorem massa. Ut iaculis, est a pharetra dictum, neque orci hendrerit leo, non rhoncus massa nunc non massa. Morbi nibh neque, tempor eget sagittis quis, ullamcorper et dui. Cras porttitor et metus vitae vulputate.</p>
+      </div>
+     </div>
+
+     <div class="border" data-role="controlgroup"    data-type="vertical">
+      <a id="optPreferencesDialogPaginateReflowable" data-role="button" data-icon="check">Paginate</a>
+     </div>
+
+     <div class="border" data-role="controlgroup"    data-type="vertical">
+      <a id="optPreferencesDialogApplyTypo"          data-role="button" data-icon="check">Apply</a>
+     </div>
+     
+     <div class="border" data-role="controlgroup"    data-type="vertical">
+      <a id="optPreferencesDialogFont"               data-role="button" data-icon="gear">Font</a>
+      <a id="optPreferencesDialogFontSize"           data-role="button" data-icon="gear">Size</a>
+      <a id="optPreferencesDialogTextAlign"          data-role="button" data-icon="gear">Align</a>
+      <a id="optPreferencesDialogTextTransform"      data-role="button" data-icon="gear">Case</a>
+     </div>
+
+     <div class="border" data-role="controlgroup"    data-type="vertical">
+      <a id="optPreferencesDialogSpacing"            data-role="button" data-icon="gear">Spacing</a>
+     </div>
+
+     <div class="border" data-role="controlgroup"    data-type="vertical">
+      <a id="optPreferencesDialogMarginLeft"         data-role="button" data-icon="gear">Left Margin</a>
+      <a id="optPreferencesDialogMarginRight"        data-role="button" data-icon="gear">Right Margin</a>
+     </div>
+
+     <div class="border" data-role="controlgroup"    data-type="vertical">
+      <a id="optPreferencesDialogBackColor"          data-role="button" data-icon="gear">Back Color</a>
+      <a id="optPreferencesDialogFontColor"          data-role="button" data-icon="gear">Font Color</a>
+     </div>
+
+     <div class="border" data-role="controlgroup"    data-type="vertical">
+      <a id="optPreferencesDialogHighlight"          data-role="button" data-icon="check">Highlight</a>
+      <a id="optPreferencesDialogHighlightStyle"     data-role="button" data-icon="gear">Style</a>
+     </div>
+
+     <div class="border" data-role="controlgroup"    data-type="vertical">
+      <a id="optPreferencesDialogScroll"             data-role="button" data-icon="check">Scroll</a>
+     </div>
+
+     <div class="border" data-role="controlgroup"    data-type="vertical">
+      <a id="optPreferencesDialogTapToPlay"          data-role="button" data-icon="check">Tap to Play</a>
+     </div>
+
+     <div class="border" data-role="controlgroup"    data-type="vertical">
+      <a id="optPreferencesDialogVolume"             data-role="button" data-icon="gear">Volume</a>
+     </div>
+
+     <div class="border" data-role="controlgroup"    data-type="vertical">
+      <a id="optPreferencesDialogSpeed"              data-role="button" data-icon="gear">Speed</a>
+     </div>
+
+     <div class="separator">&#160;</div>
+
+     <div id="colDRSAdvanced" data-role="collapsible" data-collapsed-icon="chevron-right" data-expanded-icon="chevron-down" data-theme="b">
+      <h3>Advanced</h3>
+      <div class="inset">
+       <div class="separator">&#160;</div>
+       <div class="message error" id="btnDRSReinitialize">
+        <i class="icon-trash"></i>
+        <p class="bold" id="txtDRSReinitialize">Reset to default</p>
+       </div>
+       <div class="separator">&#160;</div>
+      </div>
+     </div>
+
+    </div>
+    <!-- END of padding -->
+
+   </div>
+   <!-- END of content -->
+
+   <!-- BEGIN of footer -->
+   <div data-id="persistentFooter" data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" data-hide-during-focus="">
+    <div data-role="navbar">
+     <ul>
+      <li><a id="btnDRSBack" href="#" data-rel="back" data-icon="circle-arrow-left">Back</a></li>
+     </ul>
+    </div>
+   </div>
+   <!-- END of footer -->
+
+  </div>
+  <!-- END of DRS -->
+
+ </body>
+</html>

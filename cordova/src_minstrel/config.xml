@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget
+    id="it.readbeyond.minstrel"
+    version="3.0.1"
+    android-versionCode="30001"
+    ios-CFBundleVersion="3.0.1"
+    xmlns="http://www.w3.org/ns/widgets"
+    xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Minstrel</name>
+    <description>
+        Minstrel is the perfect app for reading+listening Audio-eBooks.
+        Immerse yourself in the amazing experience created by the seamless blending of great written words and superb human narration.
+        Proudly brought to you by ReadBeyond. For free, because we love sharing great stories.
+    </description>
+    <author
+        email="minstrel@readbeyond.it"
+        href="http://www.readbeyond.it">
+        ReadBeyond, Padova, Italy
+    </author>
+    <content src="index.html" />
+
+    <plugin name="cordova-plugin-whitelist" version="1" />
+
+    <access origin="http://readbeyond.it" />
+    <access origin="http://*.readbeyond.it" />
+    <access origin="https://readbeyond.it" />
+    <access origin="https://*.readbeyond.it" />
+
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+
+
+    <!-- Android platform -->
+    <platform name="android">
+        <!--<allow-intent href="market:*" />-->
+        
+        <!-- ldpi 36x36 -->
+        <icon   src="res/icon/android/ldpi.png"                 density="ldpi" />
+        <!-- mdpi 48x48 -->
+        <icon   src="res/icon/android/mdpi.png"                 density="mdpi" />
+        <!-- hdpi 72x72 -->
+        <icon   src="res/icon/android/hdpi.png"                 density="hdpi" />
+        <!-- xhdpi 96x96 -->
+        <icon   src="res/icon/android/xhdpi.png"                density="xhdpi" />
+
+        <!-- land ldpi 426x320 -->
+        <splash src="res/splash/android/splash-land-ldpi.png"   density="land-ldpi" />
+        <!-- port ldpi 320x426 -->
+        <splash src="res/splash/android/splash-port-ldpi.png"   density="port-ldpi" />
+
+        <!-- land mdpi 470x320 -->
+        <splash src="res/splash/android/splash-land-mdpi.png"   density="land-mdpi" />
+        <!-- port mdpi 320x470 -->
+        <splash src="res/splash/android/splash-port-mdpi.png"   density="port-mdpi" />
+
+        <!-- land hdpi 640x480 -->
+        <splash src="res/splash/android/splash-land-hdpi.png"   density="land-hdpi" />
+        <!-- port hdpi 480x640 -->
+        <splash src="res/splash/android/splash-port-hdpi.png"   density="port-hdpi" />
+        
+        <!-- land xhdpi 960x720 -->
+        <splash src="res/splash/android/splash-land-xhdpi.png"  density="land-xhdpi" />
+        <!-- port xhdpi 720x960 --> 
+        <splash src="res/splash/android/splash-port-xhdpi.png"  density="port-xhdpi" />
+    </platform>
+
+
+    <!-- iOS platform -->
+    <platform name="ios">
+        <!--<allow-intent href="itms:*" />-->
+        <!--<allow-intent href="itms-apps:*" />-->
+        
+        <!-- iOS 8.0+ -->
+        <!-- iPhone 6 Plus  -->
+        <icon   src="res/icon/ios/icon-60@3x.png"                   width="180"     height="180" />
+        <!-- iOS 7.0+ -->
+        <!-- iPhone / iPod Touch  -->
+        <icon   src="res/icon/ios/icon-60.png"                      width="60"      height="60" />
+        <icon   src="res/icon/ios/icon-60@2x.png"                   width="120"     height="120" />
+        <!-- iPad -->
+        <icon   src="res/icon/ios/icon-76.png"                      width="76"      height="76" />
+        <icon   src="res/icon/ios/icon-76@2x.png"                   width="152"     height="152" />
+        <!-- iOS 6.1 -->
+        <!-- Spotlight Icon -->
+        <icon   src="res/icon/ios/icon-40.png"                      width="40"      height="40" />
+        <icon   src="res/icon/ios/icon-40@2x.png"                   width="80"      height="80" />
+        <!-- iPhone / iPod Touch -->
+        <icon   src="res/icon/ios/icon.png"                         width="57"      height="57" />
+        <icon   src="res/icon/ios/icon@2x.png"                      width="114"     height="114" />
+        <!-- iPad -->
+        <icon   src="res/icon/ios/icon-72.png"                      width="72"      height="72" />
+        <icon   src="res/icon/ios/icon-72@2x.png"                   width="144"     height="144" />
+        <!-- iPhone Spotlight and Settings Icon -->
+        <icon   src="res/icon/ios/icon-small.png"                   width="29"      height="29" />
+        <icon   src="res/icon/ios/icon-small@2x.png"                width="58"      height="58" />
+        <!-- iPad Spotlight and Settings Icon -->
+        <icon   src="res/icon/ios/icon-50.png"                      width="50"      height="50" />
+        <icon   src="res/icon/ios/icon-50@2x.png"                   width="100"     height="100" />
+
+        <splash src="res/splash/ios/Default~iphone.png"             width="320"     height="480" />
+        <splash src="res/splash/ios/Default@2x~iphone.png"          width="640"     height="960" />
+        <splash src="res/splash/ios/Default-Portrait~ipad.png"      width="768"     height="1024" />
+        <splash src="res/splash/ios/Default-Portrait@2x~ipad.png"   width="1536"    height="2048" />
+        <splash src="res/splash/ios/Default-Landscape~ipad.png"     width="1024"    height="768" />
+        <splash src="res/splash/ios/Default-Landscape@2x~ipad.png"  width="2048"    height="1536" />
+        <splash src="res/splash/ios/Default-568h@2x~iphone.png"     width="640"     height="1136" />
+        <splash src="res/splash/ios/Default-667h.png"               width="750"     height="1334" />
+        <splash src="res/splash/ios/Default-736h.png"               width="1242"    height="2208" />
+        <splash src="res/splash/ios/Default-Landscape-736h.png"     width="2208"    height="1242" />
+    </platform>
+
+
+    <!-- Multiplatform preferences -->
+    <preference name="Fullscreen"                       value="true" />
+    <preference name="DisallowOverscroll"               value="true" />
+    <!--<preference name="BackgroundColor"                  value="0xffffffff"/>-->
+    <!--<preference name="HideKeyboardFormAccessoryBar"     value="true"/>-->
+    <!--<preference name="Orientation"                      value="default" />-->
+
+
+    <!-- iOS specific preferences -->
+    <preference name="EnableViewportScale"                  value="false" />
+    <preference name="MediaPlaybackRequiresUserAction"      value="false" />
+    <preference name="AllowInlineMediaPlayback"             value="false" />
+    <preference name="BackupWebStorage"                     value="local" />
+    <preference name="TopActivityIndicator"                 value="gray" />
+    <preference name="KeyboardDisplayRequiresUserAction"    value="true" />
+    <preference name="SuppressesIncrementalRendering"       value="false" />
+    <!--<preference name="GapBetweenPages"                      value="0"/>-->
+    <!--<preference name="PageLength"                           value="0" />-->
+    <!--<preference name="PaginationBreakingMode"               value="page" />-->
+    <!--<preference name="PaginationMode"                       value="unpaginated" />-->
+    <preference name="UIWebViewDecelerationSpeed"           value="fast" />
+    <!--<preference name="ErrorUrl"                             value="myErrorPage.html"/>-->
+    <preference name="target-device"                        value="universal" /> 
+
+
+    <!-- Android specific preferences -->
+    <preference name="KeepRunning"                      value="true" />
+    <!--<preference name="LoadUrlTimeoutValue"              value="10000" />-->
+    <!--<preference name="SplashScreen"                     value="mySplash" />-->
+    <!--<preference name="SplashScreenDelay"                value="10000" />-->
+    <!--<preference name="InAppBrowserStorageEnabled"       value="true" />-->
+    <!--<preference name="LoadingDialog"                    value="My Title,My Message" />-->
+    <!--<preference name="LoadingPageDialog"                value="My Title,My Message" />-->
+    <!--<preference name="ErrorUrl"                         value="myErrorPage.html" />-->
+    <preference name="ShowTitle"                        value="false" />
+    <preference name="LogLevel"                         value="INFO" />
+    <preference name="AndroidLaunchMode"                value="singleTask" />
+    <preference name="DefaultVolumeStream"              value="media" />
+    <preference name="android-minSdkVersion"            value="14" />
+    <preference name="android-targetSdkVersion"         value="22" />
+    <preference name="android-installLocation"          value="auto" /> 
+
+    <!-- legacy / not documented / from PhoneGap -->
+    <!--
+    <preference name="EnableLocation"                   value="false" />
+    <preference name="UIWebViewBounce"                  value="false" />
+    <preference name="detect-data-types"                value="true" />
+    <preference name="disable-cursor"                   value="false" />
+    <preference name="exit-on-suspend"                  value="false" />
+    <preference name="ios-statusbarstyle"               value="black-opaque" />
+    <preference name="permissions"                      value="none" />
+    <preference name="prerendered-icon"                 value="true" />
+    <preference name="show-splash-screen-spinner"       value="true" />
+    <preference name="stay-in-webview"                  value="false" />
+    <preference name="webviewbounce"                    value="false" />
+    -->
+</widget>

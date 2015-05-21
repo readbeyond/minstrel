@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <title>TEST MEDIARB</title>
+    </head>
+    <body>
+        <div class="app">
+            <h1>TEST MEDIARB</h1>
+            <input id="inpPath" type="text" value="/sdcard/testmedia/test.mp3"></input>
+            <h1 id="btnLoad1"  class="border">LOAD (mode1)</h1>
+            <h1 id="btnLoad2"  class="border">LOAD (mode2)</h1>
+            <h1 id="btnPlay"   class="border">PLAY</h1>
+            <h1 id="btnPause"  class="border">PAUSE</h1>
+            <h1 id="btnStop"   class="border">STOP</h1>
+            <h1 id="btnSlower" class="border">SLOWER</h1>
+            <h1 id="btnReset"  class="border">RESET</h1>
+            <h1 id="btnFaster" class="border">FASTER</h1>
+            <h1 id="btnClear"  class="border">CLEAR</h1>
+            <p  id="txtInfo"   class="log"></p>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+    </body>
+</html>

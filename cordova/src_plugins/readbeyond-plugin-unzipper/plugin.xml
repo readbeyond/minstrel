@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin
+    xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="readbeyond-plugin-unzipper"
+    version="3.0.1">
+
+    <name>Unzipper</name>
+    <description>This plugin lists the entries in a ZIP file, decompresses a ZIP file, or one or more selected entries from a ZIP file.</description>
+    <license>MIT</license>
+    <keywords>cordova,readbeyond,unzipper</keywords>
+
+    <js-module src="www/Unzipper.js" name="Unzipper">
+        <clobbers target="window.Unzipper" />
+    </js-module>
+    
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Unzipper" >
+                <param name="android-package" value="it.readbeyond.minstrel.unzipper.Unzipper"/>
+            </feature>
+        </config-file>
+        
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file>
+        
+        <source-file src="src/android/Unzipper.java" target-dir="src/it/readbeyond/minstrel/unzipper" />
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">    
+        <config-file target="config.xml" parent="/*">
+            <feature name="Unzipper">
+                <param name="ios-package" value="RBUnzipper" /> 
+            </feature>
+        </config-file>
+        <header-file src="src/ios/RBUnzipper.h"                   target-dir="Unzipper" />
+        <source-file src="src/ios/RBUnzipper.m"                   target-dir="Unzipper" />
+        <header-file src="src/ios/MiniZip/crypt.h"                target-dir="../MiniZip" />
+        <header-file src="src/ios/MiniZip/ioapi.h"                target-dir="../MiniZip" />
+        <source-file src="src/ios/MiniZip/ioapi.c"                target-dir="../MiniZip" />
+        <header-file src="src/ios/MiniZip/unzip.h"                target-dir="../MiniZip" />
+        <source-file src="src/ios/MiniZip/unzip.c"                target-dir="../MiniZip" />
+        <header-file src="src/ios/MiniZip/zip.h"                  target-dir="../MiniZip" />
+        <source-file src="src/ios/MiniZip/zip.c"                  target-dir="../MiniZip" />
+        <header-file src="src/ios/Objective-Zip/ARCHelper.h"      target-dir="../Objective-Zip" />
+        <header-file src="src/ios/Objective-Zip/FileInZipInfo.h"  target-dir="../Objective-Zip" />
+        <source-file src="src/ios/Objective-Zip/FileInZipInfo.m"  target-dir="../Objective-Zip" />
+        <header-file src="src/ios/Objective-Zip/ZipException.h"   target-dir="../Objective-Zip" />
+        <source-file src="src/ios/Objective-Zip/ZipException.m"   target-dir="../Objective-Zip" />
+        <header-file src="src/ios/Objective-Zip/ZipFile.h"        target-dir="../Objective-Zip" />
+        <source-file src="src/ios/Objective-Zip/ZipFile.m"        target-dir="../Objective-Zip" />
+        <header-file src="src/ios/Objective-Zip/ZipReadStream.h"  target-dir="../Objective-Zip" />
+        <source-file src="src/ios/Objective-Zip/ZipReadStream.m"  target-dir="../Objective-Zip" />
+        <header-file src="src/ios/Objective-Zip/ZipWriteStream.h" target-dir="../Objective-Zip" />
+        <source-file src="src/ios/Objective-Zip/ZipWriteStream.m" target-dir="../Objective-Zip" />
+        <source-file src="src/ios/ZLib/adler32.c"                 target-dir="../ZLib" />
+        <source-file src="src/ios/ZLib/compress.c"                target-dir="../ZLib" />
+        <header-file src="src/ios/ZLib/crc32.h"                   target-dir="../ZLib" />
+        <source-file src="src/ios/ZLib/crc32.c"                   target-dir="../ZLib" />
+        <header-file src="src/ios/ZLib/deflate.h"                 target-dir="../ZLib" />
+        <source-file src="src/ios/ZLib/deflate.c"                 target-dir="../ZLib" />
+        <source-file src="src/ios/ZLib/gzclose.c"                 target-dir="../ZLib" />
+        <header-file src="src/ios/ZLib/gzguts.h"                  target-dir="../ZLib" />
+        <source-file src="src/ios/ZLib/gzlib.c"                   target-dir="../ZLib" />
+        <source-file src="src/ios/ZLib/gzread.c"                  target-dir="../ZLib" />
+        <source-file src="src/ios/ZLib/gzwrite.c"                 target-dir="../ZLib" />
+        <source-file src="src/ios/ZLib/infback.c"                 target-dir="../ZLib" />
+        <header-file src="src/ios/ZLib/inffast.h"                 target-dir="../ZLib" />
+        <source-file src="src/ios/ZLib/inffast.c"                 target-dir="../ZLib" />
+        <header-file src="src/ios/ZLib/inffixed.h"                target-dir="../ZLib" />
+        <header-file src="src/ios/ZLib/inflate.h"                 target-dir="../ZLib" />
+        <source-file src="src/ios/ZLib/inflate.c"                 target-dir="../ZLib" />
+        <header-file src="src/ios/ZLib/inftrees.h"                target-dir="../ZLib" />
+        <source-file src="src/ios/ZLib/inftrees.c"                target-dir="../ZLib" />
+        <header-file src="src/ios/ZLib/trees.h"                   target-dir="../ZLib" />
+        <source-file src="src/ios/ZLib/trees.c"                   target-dir="../ZLib" />
+        <source-file src="src/ios/ZLib/uncompr.c"                 target-dir="../ZLib" />
+        <header-file src="src/ios/ZLib/zconf.h"                   target-dir="../ZLib" />
+        <header-file src="src/ios/ZLib/zlib.h"                    target-dir="../ZLib" />
+        <header-file src="src/ios/ZLib/zutil.h"                   target-dir="../ZLib" />
+        <source-file src="src/ios/ZLib/zutil.c"                   target-dir="../ZLib" />
+    </platform>
+
+    <!-- browser -->
+    <!--
+    <platform name="browser">
+        <js-module src="www/browser/Unzipper.js" name="BrowserUnzipper">
+            <clobbers target="window.Unzipper" />
+        </js-module>
+    </platform>
+    -->
+
+</plugin>
