@@ -49,6 +49,9 @@ RB.Localization.LanguageEnum = {
     /** Italian */
     IT: 'it',
 
+    /** Japanese */
+    JA: 'ja',
+
     /** Polish */
     PL: 'pl',
 
