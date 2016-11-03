@@ -18,7 +18,7 @@ RB = RB || {};
 RB.Localization = RB.Localization || {};
 RB.Localization.LocalizedStrings = RB.Localization.LocalizedStrings || {};
 
-RB.Localization.LocalizedStrings.en = {
+RB.Localization.LocalizedStrings.ja = {
     //
     // library_localization_strings
     //
